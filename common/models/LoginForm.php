@@ -16,6 +16,8 @@ class LoginForm extends Model
 
     private $_user;
 
+    const ADMIN_LOGIN_ACTIVE = 1;
+
 
     /**
      * {@inheritdoc}
@@ -59,7 +61,19 @@ class LoginForm extends Model
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
-        
+
+        return false;
+    }
+
+    public function adminLogin()
+    {
+        if ($this->validate()) {
+            $user = $this->getUser();
+            if (!empty($user->admin) && $user->admin == self::ADMIN_LOGIN_ACTIVE) {
+                return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+            }
+        }
+
         return false;
     }
 
