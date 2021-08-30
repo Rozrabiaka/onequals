@@ -34,12 +34,16 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
+    $menuItems = [];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Роки компанії', 'url' => ['/agecompany/agecompany']];
+        $menuItems[] = ['label' => 'Популярність компанії', 'url' => ['/companypopularity/companypopularity']];
+        $menuItems[] = ['label' => 'Кількість працівників компанії', 'url' => ['/countcompanyworkers/countcompanyworkers']];
+        $menuItems[] = ['label' => 'Роботодавці', 'url' => ['/employerusers/employerusers']];
+        $menuItems[] = ['label' => 'Спеціалізації', 'url' => ['/specializations/specializations']];
+        $menuItems[] = ['label' => 'Шукачі', 'url' => ['/searchworkuser/searchworkuser']];
         $menuItems[] = ['label' => 'Користувачі (RBAC)', 'url' => ['/user/user']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])

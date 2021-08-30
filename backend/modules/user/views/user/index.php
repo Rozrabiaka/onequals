@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Список користувачів для модулю RBAC</h1>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

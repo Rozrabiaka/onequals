@@ -15,6 +15,24 @@ return [
         'user' => [
             'class' => 'backend\modules\user\Module',
         ],
+        'specializations' => [
+            'class' => 'backend\modules\specializations\Module',
+        ],
+        'searchworkuser' => [
+            'class' => 'backend\modules\searchworkuser\Module',
+        ],
+        'employerusers' => [
+            'class' => 'backend\modules\employerusers\Module',
+        ],
+        'countcompanyworkers' => [
+            'class' => 'backend\modules\countcompanyworkers\Module',
+        ],
+        'companypopularity' => [
+            'class' => 'backend\modules\companypopularity\Module',
+        ],
+        'agecompany' => [
+            'class' => 'backend\modules\agecompany\Module',
+        ],
     ],
     'components' => [
         'authManager' => [
