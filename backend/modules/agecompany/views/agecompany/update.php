@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="age-company-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Оновити рік для: <?php echo $model->age_name; ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

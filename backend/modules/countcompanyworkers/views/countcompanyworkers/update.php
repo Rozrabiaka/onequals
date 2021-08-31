@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="count-company-workers-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Оновити кількість компанії для: <?php echo $model->count_company_workers; ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

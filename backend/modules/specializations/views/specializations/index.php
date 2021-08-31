@@ -11,10 +11,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="specializations-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Cпеціалізації</h1>
 
     <p>
-        <?= Html::a('Create Specializations', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Створити спеціалізацію', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 

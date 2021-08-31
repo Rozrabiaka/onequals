@@ -11,10 +11,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="age-company-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Роки компанії</h1>
 
     <p>
-        <?= Html::a('Create Age Company', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Створити рік компанії', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 

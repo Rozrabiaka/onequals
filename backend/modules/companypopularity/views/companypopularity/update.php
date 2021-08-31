@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="company-popularity-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Оновити популярність: <?php echo $model->company_popularity; ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
