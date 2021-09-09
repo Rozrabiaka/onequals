@@ -38,6 +38,8 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Тип зайнятості', 'url' => ['/employmenttype/employmenttype']];
+        $menuItems[] = ['label' => 'Вакансії', 'url' => ['/vacancies/vacancies']];
         $menuItems[] = ['label' => 'Роки компанії', 'url' => ['/agecompany/agecompany']];
         $menuItems[] = ['label' => 'Популярність компанії', 'url' => ['/companypopularity/companypopularity']];
         $menuItems[] = ['label' => 'Кількість працівників компанії', 'url' => ['/countcompanyworkers/countcompanyworkers']];

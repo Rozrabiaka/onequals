@@ -33,6 +33,12 @@ return [
         'agecompany' => [
             'class' => 'backend\modules\agecompany\Module',
         ],
+        'vacancies' => [
+            'class' => 'backend\modules\vacancies\Module',
+        ],
+        'employmenttype' => [
+            'class' => 'backend\modules\employmenttype\Module',
+        ],
     ],
     'components' => [
         'authManager' => [
