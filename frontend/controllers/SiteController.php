@@ -2,10 +2,14 @@
 
 namespace frontend\controllers;
 
+use common\models\Locality;
+use common\models\Specializations;
 use frontend\models\ResendVerificationEmailForm;
+use frontend\models\SearchForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -75,7 +79,21 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new SearchForm();
+        $specializations = Specializations::find()->asArray()->all();
+        $specializationDropDownArray = ArrayHelper::map($specializations,'id','name');
+
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl.'/js/autocomplete/autocomplete-ui.js',['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl.'/js/autocomplete/autocomplete-0.3.0.min.js',['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl.'/js/autocomplete/searchLocation.js',['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl.'/js/slider/swiper.min.js',['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl.'/js/slider/slider.js',['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerCssFile(Yii::$app->request->baseUrl.'/css/swiper.css',['position' => \yii\web\View::POS_END]);
+
+        return $this->render('index', array(
+            'searchModel' =>  $searchModel,
+            'specializationDropDownArray' => $specializationDropDownArray,
+        ));
     }
 
     /**
