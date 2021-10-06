@@ -69,11 +69,23 @@ AppAsset::register($this);
         <?= $content ?>
     </main>
 
-    <footer class="footer mt-auto py-3 text-muted">
-        <div class="container">
-            <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-            <p class="float-right"><?= Yii::powered() ?></p>
+    <footer class="footer">
+        <ul class="links-footer">
+            <li><a href="https://www.facebook.com/onequals/" target="_blank">Facebook</a></li>
+            <li><a href="https://www.instagram.com/onequals_ua/" target="_blank">Instagram</a></li>
+            <li><a href="mailto:on.equal.project@gmail.com" target="_blank">Email</a></li>
+        </ul>
+        <div class="ukf">
+            <div class="footer-left">
+                <div class="footer-left-img">
+                    <img src="/images/ukf.png"/>
+                </div>
+                <div class="footer-left-text">
+                    <p>За підтримки Українського культурного фонду</p>
+                </div>
+            </div>
         </div>
+        <div class="footer-scroll"><a href="#w0" class="button yellow-button footer-button-scroll">на початок ↑ </a></div>
     </footer>
 
     <?php $this->endBody() ?>

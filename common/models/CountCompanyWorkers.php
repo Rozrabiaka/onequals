@@ -54,4 +54,15 @@ class CountCompanyWorkers extends \yii\db\ActiveRecord
     {
         return $this->hasMany(EmployerUsers::className(), ['count_company_workers' => 'id']);
     }
+
+    public function getRadioList(){
+        $list = $this::find()->asArray()->all();
+
+        $listArray = array();
+        foreach ($list as $data) {
+            $listArray[$data['id']] =  $data['count_company_workers'];
+        }
+
+        return $listArray;
+    }
 }

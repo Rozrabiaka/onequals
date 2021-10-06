@@ -2,6 +2,8 @@ jQuery(document).ready(function () {
 
     jQuery('.search-location').on('input', function () {
         jQuery('.search-location').autocomplete({
+            appendTo: '.search-input',
+            open: function() { jQuery('#div .ui-menu').width(300) },
             source: function (request, response) {
                 const keyword = jQuery('.search-location').val();
                 jQuery.ajax({
@@ -10,6 +12,8 @@ jQuery(document).ready(function () {
                     data: {"keyword": keyword},
                     success: function (data) {
                         var autocomplete = {};
+                        let obj = {};
+
                         if (data !== 'null') {
                             selected = false;
                             let autocompleteString = '';
@@ -22,8 +26,16 @@ jQuery(document).ready(function () {
                                 if(arValue.type !== null)
                                     autocompleteString = autocompleteString + arValue.type;
 
-                                autocomplete[arValue.id] = autocompleteString;
+                                obj =  {
+                                    'id':arValue.id,
+                                    'value':autocompleteString,
+                                    'label':autocompleteString
+                                }
+
+                                autocomplete[arValue.id] = obj;
                             });
+
+
                             response(autocomplete);
                         } else {
                             console.log('source ajax error');
@@ -31,32 +43,10 @@ jQuery(document).ready(function () {
                     }
                 });
             }, select: function (event, ui) {
-                console.log(event);
-                console.log(ui);
-                // jQuery("ul.ui-autocomplete").hide();
-                // if (ui.item.label) {
-                //     const label = ui.item.label.split(';');
-                //     if (label.length == 6) {
-                //         userUSAddress = {
-                //             city: label[2],
-                //             country: 'US',
-                //             state: label[3],
-                //             street_number: label[0],
-                //             zipCode: label[4],
-                //             subpremise: label[1]
-                //         };
-                //         jQuery("#new-form-address").val(ui.item.label.replace(/;/g, ' '));
-                //         return false;
-                //     } else {
-                //         selected = true;
-                //         setTimeout(function () {
-                //             const entries = label[5].split(' ');
-                //             jQuery('#new-form-address').autocomplete('search', label[0] + ' ' + label[1] + ' ' + entries[0] + ') ' + label[2] + ' ' + label[3] + ' ' + label[4]);
-                //         }, 0);
-                //         jQuery("#new-form-address").val(ui.item.label.replace(/;/g, ' '));
-                //         return false;
-                //     }
-                // }
+                jQuery("ul.ui-autocomplete").hide();
+                if (ui.item.id) {
+                    jQuery('.country-js-hidden-id').val(ui.item.id);
+                }
             }, minLength: 3,
             close: function () {
                 if (!jQuery("ul.ui-autocomplete").is(":visible")) {
@@ -68,15 +58,6 @@ jQuery(document).ready(function () {
             //     jQuery(".no-match").hide();
             //     jQuery('.address-loader').show();
             // },
-            // response: function (ul, item) {
-            //     jQuery('.address-loader').hide();
-            //     jQuery(this).data('ui-autocomplete')._renderItem = function (ul, item) {
-            //         return jQuery("<li class='autocomplete-address-li'>").append("<div data-address='" + item.label + "'>" + item.label.replace(/;/g, ' ') + "</div>")
-            //             .appendTo(ul);
-            //     };
-            //
-            //     jQuery("ul.ui-autocomplete").show();
-            // }
         });
         jQuery("#new-form-address").autocomplete("enable");
     });

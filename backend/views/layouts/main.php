@@ -47,6 +47,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Спеціалізації', 'url' => ['/specializations/specializations']];
         $menuItems[] = ['label' => 'Шукачі', 'url' => ['/searchworkuser/searchworkuser']];
         $menuItems[] = ['label' => 'Користувачі (RBAC)', 'url' => ['/user/user']];
+        $menuItems[] = ['label' => 'Слайдер (Головна)', 'url' => ['/slider/slider']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(

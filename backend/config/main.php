@@ -39,6 +39,9 @@ return [
         'employmenttype' => [
             'class' => 'backend\modules\employmenttype\Module',
         ],
+        'slider' => [
+            'class' => 'backend\modules\slider\Module',
+        ],
     ],
     'components' => [
         'authManager' => [

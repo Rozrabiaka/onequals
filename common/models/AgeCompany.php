@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "age_company".
@@ -52,5 +53,16 @@ class AgeCompany extends \yii\db\ActiveRecord
     public function getEmployerUsers()
     {
         return $this->hasMany(EmployerUsers::className(), ['age_company' => 'id']);
+    }
+
+    public function getRadioList(){
+        $list = $this::find()->asArray()->all();
+
+        $listArray = array();
+        foreach ($list as $data) {
+            $listArray[$data['id']] =  $data['age_name'];
+        }
+
+        return $listArray;
     }
 }

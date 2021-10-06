@@ -1,0 +1,93 @@
+<?php
+
+?>
+
+<div class="employer-profile">
+    <div class="profile-head">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 employer-avatar ">
+                    <img src="<?php echo $model['img'] ?>">
+                </div>
+                <div class="col-xl-9 ">
+                    <div class="employer-header-info">
+                        <h1 class="company-name"><?php echo $model['company_name']; ?></h1>
+                        <p>
+                            <img src="/images/location.png"/><span><?php echo $model['title'] . ', ' . $model['type'] ?></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <p><?php echo $model['company_description'] ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php if (!empty($vacancies)): ?>
+        <div class="profile-vacancies">
+            <div class="container">
+                    <?php foreach ($vacancies as $vac): ?>
+                    <div class="row vacancies-info">
+                        <div class="col-xl-4 vac-info-block">
+                            <p class="spec_name"><?php echo $vac['spec_name'] ?></p>
+                            <p class="emp_name"><?php echo $vac['emp_name'] ?></p>
+                            <p class="locality"><?php echo $vac['title'] . ', ' . $vac['type'] ?></p>
+                            <p class="wage"><?php echo $vac['wage'] ?></p>
+                            <div class="employer-des-hide">
+                                <span id="<?php echo $vac['id'] ?>" class="description description-<?php echo $vac['id'] ?>"><?php echo $vac['description'] ?></span>
+                                <span id="<?php echo $vac['id'] ?>" class="employer-roll-down employer-roll-down-<?php echo $vac['id'] ?>">розгорнути ↓</span>
+                                <span id="<?php echo $vac['id'] ?>" class="employer-roll-up employer-roll-up-<?php echo $vac['id'] ?>">згорнути ↑</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-8">
+                            <a href="/site/vacancies-employer-edit?id=<?php echo $vac['id'] ?>"><img src="/images/edit-vacancy.png" /></a>
+                            <a href="/site/vacancies-employer-delete?id=<?php echo $vac['id'] ?>"><img src="/images/trash-vacancy.png" /></a>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+            </div>
+        </div>
+    <?php else: ?>
+
+    <?php endif; ?>
+
+    <div class="employer-buttons">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="div-button-a div-button-border employer-paddings-button">
+                        <a class="button" href="/site/employer-vacation">Додати ще вакансію +</a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="div-button-a employer-button-hide employer-paddings-button">
+                        <a class="button" href="/site/hide-employer">
+                            <?php if ($model['hide_employer'] == 0): ?>
+                                Приховати сторінку
+                            <?php else: ?>
+                                Показати сторінку
+                            <?php endif; ?>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="div-button-a div-button-border employer-paddings-button">
+                        <a class="button" href="/site/edit-employer">Редагувати інформацію</a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="div-button-a employer-remove-button employer-paddings-button">
+                        <a class="button" href="/site/delete-employer">Видалити акаунт</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

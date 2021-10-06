@@ -23,6 +23,8 @@ use common\models\Specializations;
  */
 class Vacancies extends \yii\db\ActiveRecord
 {
+
+    public $hiddenCountry;
     /**
      * {@inheritdoc}
      */
@@ -38,9 +40,8 @@ class Vacancies extends \yii\db\ActiveRecord
     {
         return [
             [['employer_id', 'specialization', 'country', 'wage', 'description'], 'required'],
-            [['employer_id', 'specialization', 'country', 'employer_type'], 'integer'],
-            [['description'], 'string'],
-            [['wage'], 'string', 'max' => 255],
+            [['employer_id', 'specialization', 'employer_type', 'wage', 'hiddenCountry'], 'integer'],
+            [['description', 'country'], 'string'],
             [['specialization'], 'exist', 'skipOnError' => true, 'targetClass' => Specializations::className(), 'targetAttribute' => ['specialization' => 'id']],
             [['employer_id'], 'exist', 'skipOnError' => true, 'targetClass' => EmployerUsers::className(), 'targetAttribute' => ['employer_id' => 'id']],
             [['employer_type'], 'exist', 'skipOnError' => true, 'targetClass' => EmploymentType::className(), 'targetAttribute' => ['employer_type' => 'id']],

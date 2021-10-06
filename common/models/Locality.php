@@ -56,4 +56,22 @@ class Locality extends \yii\db\ActiveRecord
     {
         return $this->hasMany(self::className(),['id' =>'parent_id'])->where(['like', 'locality.title', $s]);
     }
+
+    public function getLocalityNameById($id){
+        $country = Locality::find()->select(['locality.title as loctitle', 'locality.type as loctype', 'l1.title', 'l1.type'])
+            ->leftJoin(['l1' => 'locality_con'], 'locality.parent_id = l1.id')
+            ->where(['like', 'locality.id', $id])
+            ->asArray()
+            ->all();
+
+
+        $i = 0;
+        foreach ($country[0] as $locality) {
+            if ($i == 0) $countryName = $locality;
+            else $countryName = $countryName . ' ' . $locality;
+            $i++;
+        }
+
+        return $countryName;
+    }
 }

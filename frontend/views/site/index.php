@@ -8,41 +8,45 @@ use yii\widgets\ActiveForm;
 $this->title = 'OnEquals';
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="home-search-block">
-            <div class="search">
-                <?php
-                $form = ActiveForm::begin([
-                    'id' => 'search-form',
-                ]) ?>
-                <div class="col-xl-4">
-                    <?= $form->field($searchModel, 'search')->textInput(['placeholder' => 'Ключові слова'])->label(false) ?>
-                </div>
-                <div class="col-xl-4">
-                    <?= $form->field($searchModel, 'specialization')->dropDownList($specializationDropDownArray, [
-                        'prompt' => 'Спеціалізації'
-                    ])->label(false) ?>
-                </div>
-                <div class="col-xl-4">
-                    <?= $form->field($searchModel, 'specialization')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'search-location'])->label(false) ?>
-                </div>
-            </div>
+<div class="home-page-search-block">
+    <div class="container">
+        <div class="row">
+            <div class="home-search-block">
+                <div class="search">
+                    <?php
+                    $form = ActiveForm::begin([
+                        'id' => 'search-form',
+                    ]) ?>
+                    <div class="col-xl-4">
+                        <?= $form->field($searchModel, 'search')->textInput(['placeholder' => 'Ключові слова'])->label(false) ?>
+                    </div>
+                    <div class="col-xl-4">
+                        <?= $form->field($searchModel, 'specialization')->dropDownList($specializationDropDownArray, [
+                            'prompt' => 'Спеціалізації'
+                        ])->label(false) ?>
+                    </div>
 
-            <div class="form-group">
-                <div class="col-md-6 search-button-block">
-                    <?= Html::submitButton('Знайти', ['class' => 'button blue-button search-button']) ?>
+                    <div class="col-xl-4 search-input">
+                        <?= $form->field($searchModel, 'search')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'search-location'])->label(false) ?>
+                    </div>
                 </div>
-            </div>
 
-            <img class="home-search-img-lightning-2" src="/images/lightning-2.png"/>
-            <img class="home-search-img-lightning-1" src="/images/lightning-1.png"/>
-            <img class="home-search-img-start-1" src="/images/star-1.png"/>
-            <img class="home-search-img-start-2" src="/images/star-2.png"/>
-            <?php ActiveForm::end() ?>
+                <div class="form-group">
+                    <div class="col-md-6 search-button-block">
+                        <?= Html::submitButton('Знайти', ['class' => 'button blue-button search-button']) ?>
+                    </div>
+                </div>
+
+                <img class="home-search-img-lightning-2" src="/images/lightning-2.png"/>
+                <img class="home-search-img-lightning-1" src="/images/lightning-1.png"/>
+                <img class="home-search-img-start-1" src="/images/star-1.png"/>
+                <img class="home-search-img-start-2" src="/images/star-2.png"/>
+                <?php ActiveForm::end() ?>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="home-buttons">
     <div class="container">
         <div class="row home-buttons-main">
@@ -105,25 +109,23 @@ $this->title = 'OnEquals';
                 <p>Ми створили мотиваційний стікерпак для телеграму! Завантажуй і доповнюй його новими іменами!</p>
             </div>
 
-            <div class="col-md-12">
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="col-xl-6">
-                                image here
+            <div class="swiper-container swiper-block">
+                <div class="swiper-wrapper">
+                    <?php foreach ($slider as $sliders): ?>
+                        <div class="index-swiper swiper-slide second">
+                            <div class="col-xl-5 swiper-img">
+                                <img src="<?php echo $sliders['img_path']; ?>"/>
                             </div>
-                            <div class="col-xl-6">
-                                text here
+                            <div class="col-xl-7 swiper-text">
+                                <?php echo $sliders['text'] ?>
                             </div>
                         </div>
-                        <div class="swiper-slide">Slide 2</div>
-                        <div class="swiper-slide">Slide 3</div>
-                        <div class="swiper-slide">Slide 4</div>
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+                    <?php endforeach; ?>
                 </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
+
         </div>
     </div>
 </div>

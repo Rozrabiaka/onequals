@@ -35,7 +35,13 @@ use Yii;
  */
 class EmployerUsers extends \yii\db\ActiveRecord
 {
+    const EMPLOYER_WHICH_USER = 1;
+    const HIDE_EMPLOYER = 1;
+    const SHOW_EMPLOYER = 0;
+    public $hiddenCountry;
+
     /**
+     *
      * {@inheritdoc}
      */
     public static function tableName()
@@ -49,10 +55,10 @@ class EmployerUsers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'company_name', 'email', 'specialization', 'webpage', 'facebook', 'instagram', 'twitter', 'LinkedIn', 'age_company', 'count_company_workers', 'company_popularity', 'company_description', 'country'], 'required'],
-            [['user_id', 'specialization', 'age_company', 'count_company_workers', 'company_popularity', 'country'], 'integer'],
-            [['company_description'], 'string'],
-            [['company_name', 'email', 'webpage', 'facebook', 'instagram', 'twitter', 'LinkedIn'], 'string', 'max' => 255],
+            [['user_id', 'company_name', 'specialization', 'age_company', 'count_company_workers', 'company_popularity', 'company_description'], 'required'],
+            [['user_id', 'specialization', 'age_company', 'count_company_workers', 'company_popularity', 'hide_employer'], 'integer'],
+            [['company_description', 'country', 'img'], 'string'],
+            [['company_name', 'webpage', 'facebook', 'instagram', 'twitter', 'LinkedIn'], 'string', 'max' => 255],
             [['age_company'], 'exist', 'skipOnError' => true, 'targetClass' => AgeCompany::className(), 'targetAttribute' => ['age_company' => 'id']],
             [['company_popularity'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyPopularity::className(), 'targetAttribute' => ['company_popularity' => 'id']],
             [['count_company_workers'], 'exist', 'skipOnError' => true, 'targetClass' => CountCompanyWorkers::className(), 'targetAttribute' => ['count_company_workers' => 'id']],
@@ -71,7 +77,6 @@ class EmployerUsers extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'company_name' => 'Company Name',
-            'email' => 'Email',
             'specialization' => 'Specialization',
             'webpage' => 'Webpage',
             'facebook' => 'Facebook',

@@ -54,4 +54,15 @@ class CompanyPopularity extends \yii\db\ActiveRecord
     {
         return $this->hasMany(EmployerUsers::className(), ['company_popularity' => 'id']);
     }
+
+    public function getRadioList(){
+        $list = $this::find()->asArray()->all();
+
+        $listArray = array();
+        foreach ($list as $data) {
+            $listArray[$data['id']] =  $data['company_popularity'];
+        }
+
+        return $listArray;
+    }
 }
