@@ -421,6 +421,8 @@ class SiteController extends Controller
         if ($this->isUserEmployer() == false) return $this->redirect(['site/error']);
         else {
             $model = new EmployerUsers();
+            $likeModel = new LikeSummary();
+
             $employerUserModel = $model::find()
                 ->select(['employer_users.id', 'l1.title', 'l1.type', 'employer_users.webpage', 'employer_users.facebook', 'employer_users.instagram', 'employer_users.twitter', 'employer_users.LinkedIn', 'employer_users.company_name', 'employer_users.img', 'employer_users.company_description', 'employer_users.hide_employer'])
                 ->where(['user_id' => Yii::$app->user->identity->id])
@@ -437,13 +439,26 @@ class SiteController extends Controller
                 ->asArray()
                 ->all();
 
-            //TODO сделать тоже самое что и worker profile збережені вакансії
+            $likeModelArray = $likeModel->getLikeSummaryArrayByLoginUserId();
+
+            $summary = Summary::find()
+                ->select(['user.email', 'emp_user.user_id', 'summary.id', 'l1.title', 'l1.type', 'summary.description', 'summary.wage', 'emp_type.name as emp_name', 'spec.name as spec_name', 'emp_user.firstname', 'emp_user.lastname', 'emp_user.patronymic'])
+                ->where(['summary.id' => $likeModelArray])
+                ->leftJoin(['l1' => 'locality'], 'summary.country = l1.id')
+                ->leftJoin(['spec' => 'specializations'], 'summary.specialization = spec.id')
+                ->leftJoin(['emp_type' => 'employment_type'], 'summary.employer_type = emp_type.id')
+                ->leftJoin(['emp_user' => 'search_work_user'], 'summary.worker_id = emp_user.id')
+                ->leftJoin(['user' => 'user'], 'emp_user.user_id = user.id')
+                ->asArray()
+                ->all();
 
             \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/employerProfile/employerProfile.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
 
             return $this->render('employerProfile', [
                 'model' => $employerUserModel,
-                'vacancies' => $vacancies
+                'vacancies' => $vacancies,
+                'likeModel' => $likeModelArray,
+                'summary' => $summary
             ]);
         }
     }

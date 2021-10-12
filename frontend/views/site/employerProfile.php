@@ -125,4 +125,62 @@ $this->title = 'OnEquals - Мій профіль';
             </div>
         </div>
     </div>
+
+    <div class="liked-vacancies vacancies-info">
+        <div class="container">
+            <h1>Збережені резюме:</h1>
+            <?php if (!empty($summary)): ?>
+                <?php foreach ($summary as $value): ?>
+                    <div class="row">
+                        <div class="col-xl-7 vac-info-block profile-info-block">
+
+                            <h3 class="vac-info-search-h3"><?php echo $value['lastname'] . ' ' . $value['firstname'] ?></h3>
+
+                            <p class="spec_name"><?php echo $value['spec_name'] ?></p>
+                            <p class="emp_name"><?php echo $value['emp_name'] ?></p>
+                            <p class="locality"><?php echo $value['title'] . ', ' . $value['type'] ?></p>
+                            <p class="wage"><?php echo $value['wage'] ?></p>
+                            <div class="search-des-hide">
+                    <span id="<?php echo $value['id'] ?>"
+                          class="description description-<?php echo $value['id'] ?>"><?php echo $value['description'] ?></span>
+                                <span id="<?php echo $value['id'] ?>"
+                                      class="vacancies-info-search-roll-down vacancies-info-search-roll-down-<?php echo $value['id'] ?>">розгорнути ↓</span>
+                                <span id="<?php echo $value['id'] ?>"
+                                      class="vacancies-info-search-roll-up vacancies-info-search-roll-up-<?php echo $value['id'] ?>">згорнути ↑</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 em-profile-buttons-vacancies">
+                            <a href="/site/profile?id=<?php echo $value['user_id'] ?>">
+                                <div class="vac-prof-but vac-prof-button-search">
+                                    <img src="/images/eye-vacancy.png">
+                                </div>
+                            </a>
+
+                            <?php if (!Yii::$app->user->isGuest): ?>
+                                <?php if (in_array($value['id'], $likeModel)): ?>
+                                    <a href="/site/remove-like?id=<?php echo $value['id'] ?>">
+                                        <div class="vac-prof-but vac-prof-but-heart vac-prof-button-search vac-prof-but-heart-remove-like">
+                                            <img src="/images/heart-vacancy.png">
+                                        </div>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="/site/add-like?id=<?php echo $value['id'] ?>">
+                                        <div class="vac-prof-but vac-prof-but-heart vac-prof-button-search ">
+                                            <img src="/images/heart-vacancy.png">
+                                        </div>
+                                    </a>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
+                            <a href="mailto::<?php echo $value['email']; ?>">
+                                <div class="vac-prof-but vac-prof-but-email vac-prof-button-search">
+                                    <img src="/images/mail-vacancy.png">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
