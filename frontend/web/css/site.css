@@ -7,7 +7,7 @@ main > .container {
     padding: 70px 15px 20px;
 }
 
-.home-page-search-block {
+.search-block {
     background-color: #E5E5E5;
     padding: 70px 15px 20px;
 }
@@ -290,12 +290,12 @@ a.desc:after {
     border-right: 2px solid black;
 }
 
-.company-info-employer [type="radio"]:checked + label , #vacancies-employer_type [type="radio"]:checked + label{
+.company-info-employer [type="radio"]:checked + label , #vacancies-employer_type [type="radio"]:checked + label,  #worker-summary-form [type="radio"]:checked + label, #edit-worker-summary [type="radio"]:checked + label{
     background-color: #fed849;
     border-radius: 4.3vw;
     padding: 2px 8px;
 }
-#vacancies-employer_type [type="radio"]:checked + label{
+#vacancies-employer_type [type="radio"]:checked + label, #worker-summary-form [type="radio"]:checked + label, #edit-worker-summary [type="radio"]:checked + label{
     background-color: #c4de95;
 }
 
@@ -337,10 +337,10 @@ a.desc:after {
 .save-profile-block{
     margin: 0 auto;
 }
-.company-info-employer .was-validated .custom-control-input:valid ~ .custom-control-label, .custom-control-input.is-valid ~ .custom-control-label{
+.company-info-employer .was-validated .custom-control-input:valid ~ .custom-control-label, .custom-control-input.is-valid ~ .custom-control-label, .custom-control-input.is-valid ~ .custom-control-label{
     color:#000 !important;
 }
-.company-info-employer .custom-control-label::before, #vacancies-employer_type .custom-control-label:before{
+.company-info-employer .custom-control-label::before, #vacancies-employer_type .custom-control-label:before, #worker-summary-form .custom-control-label:before, #edit-worker-summary .custom-control-label:before{
     content: unset;
 }
 
@@ -542,7 +542,7 @@ a.desc:after {
 .choose-form{
     margin-top:100px;
 }
-#login-form input, #employer-form input, #edit-employer-form input{
+#login-form input, #employer-form input, #edit-employer-form input, #search-work-form input, #worker-profile-form input, #worker-summary-form input, #edit-worker-summary input{
       width: 100%;
       font-size: 22px;
       outline: none;
@@ -551,7 +551,7 @@ a.desc:after {
       margin-top: 30px;
       padding: 0 0 0.78vw 0;
   }
-#login-form label, #employer-form label, #edit-employer-form label{
+#login-form label, #employer-form label, #edit-employer-form label, #search-work-form label, #worker-profile-form label, #worker-summary-form label, #edit-worker-summary label{
     font-size: 36px;
     margin-top: 50px;
     width: 100%;
@@ -583,13 +583,19 @@ a.desc:after {
 }
 .employer-avatar, .employer-header-info{
     margin-top:90px;
-    margin-bottom:90px;
+    margin-bottom:40px;
 }
 .employer-avatar{
     text-align: center;
+    max-height: 300px;
+}
+.profile-top-info{
+    margin-bottom:90px;
 }
 .employer-avatar img{
     max-width: 100%;
+    border-radius: 50%;
+    height:100%;
 }
 .employer-header-info{
     padding-left:100px;
@@ -640,7 +646,7 @@ a.desc:after {
 .employer-button-hide{
     background-color: #C4DE95;
 }
-#vacancies-employer_type{
+#vacancies-employer_type, #summary-employer_type{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -655,20 +661,161 @@ a.desc:after {
 }
 .vacancies-info .vac-info-block p{
     border-bottom:1px solid #000;
+    font-size: 29px;
+    margin-bottom: 11px;
+    padding: 0 0 10px;
 }
 .profile-vacancies{
     margin-top:100px;
 }
-.vacancies-info .employer-roll-up, .vacancies-info .description{
+.vacancies-info .employer-roll-up, .vacancies-info .description, .worker-des-hide .worker-roll-up, .search-des-hide .search-roll-up, .profile-roll-up, .vacancies-info-search-roll-up{
     display:none;
 }
 .vacancies-info .description{
     color:#000;
 }
-.employer-des-hide{
+.worker-des-hide, .search-des-hide, .profile-des-hide{
     color: #999999;
 }
 .employer-buttons{
+    margin-bottom:100px;
+}
+.em-profile-buttons-vacancies{
+    float: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.vac-prof-but{
+    border: 4px solid black;
+    box-sizing: border-box;
+    border-radius: 50%;
+    padding: 30px;
+}
+.vac-prof-but.delete{
+    background-color: #509FC8;
+    border:none;
+}
+.a-em-prof-but-delete{
+    padding-left: 20px;
+}
+.worker-profile .social, .social{
+    display: flex;
+    justify-content: space-between;
+}
+.links{
+    text-align: center;
+}
+.site-error{
+    margin-top:200px;
+    margin-bottom:200px;
+}
+.site-error h1{
+    text-align: center;
+}
+.profile-avatar input{
+    margin-top:0 !important;
+}
+.profile-avatar{
+    margin-top:30px;
+}
+.vac-info-search-h3{
+    font-size:43px;
+    margin-bottom: 40px;
+}
+.vac-prof-but-heart{
+    background-color: #F98DC0;
+}
+.vac-prof-but-heart-remove-like{
+    background-color:#FF5C55;
+}
+.vac-prof-but-email{
+    background-color: #509FC8;
+}
+.vac-prof-but-email, .vac-prof-but-heart{
+    border:none;
+}
+.vac-prof-button-search{
+    width: calc(55px + 2.5vw);
+    height: calc(55px + 2.5vw);
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.em-profile-buttons-vacancies a:not(:first-child){
+    padding-left:25px;
+}
+.em-profile-buttons-vacancies a:last-child{
+    padding-right:25px;
+}
+.list-view-search-page .list-view, .sorter-lvsp{
+    border-right: 4px solid black;
+}
+
+.list-view-search-page{
+    margin-top:140px;
+}
+.search-vacancies-info{
+    border-top: 4px solid black;
+}
+.list-view-search-page .pagination li a{
+    color:#000;
+}
+.list-view-search-page .pagination li a:hover{
+    text-decoration: none;
+}
+.list-view-search-page .pagination li{
+    font-size:42px;
+}
+.list-view-search-page .pagination .active{
+    background-color: #FDD749;
+    border-radius: 50%;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+}
+.list-view-search-page .list-view .pagination {
+    align-items: center;
+    justify-content: space-between;
+}
+.sorter-info-text{
+    color: #999999;
+    font-size: 22px;
+}
+.list-view-search-page .summary, .list-view-search-page .sorter{
+    font-size:25px;
+}
+.list-view-search-page .sorter{
+    display: flex;
+    list-style-type: none;
+}
+.list-checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.list-checkbox+label {
+    display: block;
+    font-size: 25px;
+    background: top 7px left 0 url(/images/check-box-0.png) no-repeat;
+    background-size: 30px auto;
+    padding-left: 45px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.list-checkbox:checked+label {
+    background-image: url(/images/check-box.png);
+}
+.list-search-h3{
+    font-size:40px;
+    margin-bottom: 50px;
+}
+.profile-info-block{
     margin-bottom:100px;
 }
 /* MEDIA */
@@ -796,8 +943,8 @@ a.desc:after {
     }
 
     .footer-button-scroll{
-        padding-left:40px;
-        padding-right:40px;
+        padding-left:20px;
+        padding-right:20px;
     }
     .footer .footer-left-text p{
         font-size:22px;
@@ -836,7 +983,7 @@ a.desc:after {
 
 @media screen and (max-width: 480px) {
     .home-search-img-lightning-2 {
-        top: calc(260px + 130vw);
+        top: calc(140px + 130vw);
         left: calc(31px + 2.5vw);
         width: calc(59px + 15.6vw);
     }
@@ -846,13 +993,55 @@ a.desc:after {
     }
 
     main .home-search-img-start-2 {
-        top: calc(240px + 125.6vw);
+        top: calc(140px + 125.6vw);
         left: calc(-53px + 72.5vw);
         width: calc(36px + 3.8vw);
     }
 
     .home-video-arrow-1 {
         display: none;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .home-search-img-lightning-2 {
+        top: calc(170px + 130vw);
+        left: calc(31px + 2.5vw);
+        width: calc(59px + 15.6vw);
+    }
+
+    main .home-search-img-start-2 {
+        top: calc(190px + 125.6vw);
+        left: calc(-53px + 72.5vw);
+        width: calc(36px + 3.8vw);
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .home-search-img-lightning-2 {
+        top: calc(200px + 130vw);
+        left: calc(31px + 2.5vw);
+        width: calc(59px + 15.6vw);
+    }
+
+    main .home-search-img-start-2 {
+        top: calc(230px + 125.6vw);
+        left: calc(-53px + 72.5vw);
+        width: calc(36px + 3.8vw);
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .home-search-img-lightning-2 {
+        top: calc(290px + 130vw);
+        left: calc(31px + 2.5vw);
+        width: calc(59px + 15.6vw);
+    }
+
+    main .home-search-img-start-2 {
+        top: calc(320px + 125.6vw);
+        left: calc(-53px + 72.5vw);
+        width: calc(36px + 3.8vw);
     }
 }
 

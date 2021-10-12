@@ -13,7 +13,7 @@ $this->title = 'Хто ви';
             </div>
             <div class="row">
                 <div class="col-xl-7 choose-button button worker-button-block search-button">
-                    <a href="/site/worker" class="worker-button">Шукач</a>
+                    <a href="/site/search-work" class="worker-button">Шукач</a>
                 </div>
             </div>
         </div>

@@ -2,8 +2,10 @@
 
 namespace frontend\controllers;
 
-use backend\models\EmploymentType;
-use backend\models\Vacancies;
+use common\models\EmploymentType;
+use common\models\LikeSummary;
+use common\models\LikeVacancies;
+use common\models\Vacancies;
 use common\models\AgeCompany;
 use common\models\CompanyPopularity;
 use common\models\CountCompanyWorkers;
@@ -12,6 +14,8 @@ use common\models\Locality;
 use common\models\SearchWorkUser;
 use common\models\Slider;
 use common\models\Specializations;
+use common\models\Summary;
+use common\models\UploadImage;
 use common\models\User;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\SearchForm;
@@ -28,6 +32,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -42,7 +47,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'employer', 'employer-profile', 'choose', 'employer-vacation', 'delete-employer', 'hide-employer', 'vacancies-employer-edit', 'vacancies-employer-delete', 'edit-employer'],
+                'only' => ['logout', 'signup', 'employer', 'employer-profile', 'choose', 'employer-vacation', 'delete-employer', 'hide-employer', 'vacancies-employer-edit', 'vacancies-employer-delete', 'edit-employer', 'search-work', 'worker-profile', 'hide-worker', 'delete-worker', 'worker-summary', 'worker-summary-delete', 'worker-summary-edit', 'edit-worker', 'add-like', 'remove-like'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -50,7 +55,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'employer', 'employer-profile', 'choose', 'employer-vacation', 'delete-employer', 'hide-employer', 'vacancies-employer-edit', 'vacancies-employer-delete', 'edit-employer'],
+                        'actions' => ['logout', 'employer', 'employer-profile', 'choose', 'employer-vacation', 'delete-employer', 'hide-employer', 'vacancies-employer-edit', 'vacancies-employer-delete', 'edit-employer', 'search-work', 'worker-profile', 'hide-worker', 'delete-worker', 'worker-summary', 'worker-summary-delete', 'worker-summary-edit', 'edit-worker', 'add-like', 'remove-like'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -92,21 +97,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new SearchForm();
-        $specializations = Specializations::find()->asArray()->all();
         $slider = Slider::find()->asArray()->all();
-        $specializationDropDownArray = ArrayHelper::map($specializations, 'id', 'name');
 
-        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-ui.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
-        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-0.3.0.min.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
-        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/searchLocation.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
         \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/slider/swiper.min.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
         \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/slider/slider.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
         \Yii::$app->getView()->registerCssFile(Yii::$app->request->baseUrl . '/css/swiper.css', ['position' => \yii\web\View::POS_END]);
 
         return $this->render('index', array(
-            'searchModel' => $searchModel,
-            'specializationDropDownArray' => $specializationDropDownArray,
             'slider' => $slider,
         ));
     }
@@ -360,13 +357,13 @@ class SiteController extends Controller
 
     public function actionChoose()
     {
-
-        //TODO IMPORTANT проверка также на пользователя который ИЩЕТ РАБОТУ
-        if ($this->isUserEmployer() == false)
-            return $this->render('choose');
-        else {
+        if ($this->isUserEmployer() !== false and $this->isUserSearcher() == false)
             return $this->redirect(['site/employer-profile']);
+        elseif ($this->isUserEmployer() == false and $this->isUserSearcher() !== false) {
+            return $this->redirect(['site/worker-profile']);
         }
+
+        return $this->render('choose');
     }
 
     public function actionEmployer()
@@ -378,7 +375,7 @@ class SiteController extends Controller
         else {
             if (!empty(Yii::$app->request->post())) {
                 $model->load(Yii::$app->request->post());
-                $model->country = Yii::$app->request->post()['EmployerUsers']['hiddenCountry'];
+                $model->country = (int)Yii::$app->request->post()['EmployerUsers']['hiddenCountry'];
                 $model->user_id = \Yii::$app->user->identity->id;
                 $model->img = '/images/avatar.png';
                 $model->hide_employer = $model::SHOW_EMPLOYER;
@@ -425,7 +422,7 @@ class SiteController extends Controller
         else {
             $model = new EmployerUsers();
             $employerUserModel = $model::find()
-                ->select(['employer_users.id', 'l1.title', 'l1.type', 'employer_users.company_name', 'employer_users.img', 'employer_users.company_description', 'employer_users.hide_employer'])
+                ->select(['employer_users.id', 'l1.title', 'l1.type', 'employer_users.webpage', 'employer_users.facebook', 'employer_users.instagram', 'employer_users.twitter', 'employer_users.LinkedIn', 'employer_users.company_name', 'employer_users.img', 'employer_users.company_description', 'employer_users.hide_employer'])
                 ->where(['user_id' => Yii::$app->user->identity->id])
                 ->leftJoin(['l1' => 'locality'], 'employer_users.country = l1.id')
                 ->asArray()
@@ -439,6 +436,8 @@ class SiteController extends Controller
                 ->leftJoin(['emp_type' => 'employment_type'], 'vacancies.employer_type = emp_type.id')
                 ->asArray()
                 ->all();
+
+            //TODO сделать тоже самое что и worker profile збережені вакансії
 
             \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/employerProfile/employerProfile.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -470,12 +469,10 @@ class SiteController extends Controller
 
     public function actionDeleteEmployer()
     {
-        $whichUser = Yii::$app->user->identity->which_user;
-        $model = new EmployerUsers();
-
-        if ($whichUser !== $model::EMPLOYER_WHICH_USER) return $this->redirect(['site/error']);
+        if ($this->isUserEmployer() == false) return $this->redirect(['site/error']);
         else {
 
+            $model = new EmployerUsers();
             $employerUserModel = $model::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
 
             //delete employer vacancies
@@ -593,8 +590,14 @@ class SiteController extends Controller
 
         if (!empty($model)) {
             if (!empty(Yii::$app->request->post())) {
+                $uploadImage = new UploadImage();
+                $model->image = UploadedFile::getInstances($model, 'image');
+                $imgPath = $uploadImage->uploadImage($model->image);
+
                 $model->load(Yii::$app->request->post());
                 $model->country = Yii::$app->request->post('EmployerUsers')['hiddenCountry'];
+                if ($imgPath) $model->img = $imgPath;
+
                 if ($model->save()) {
                     return $this->redirect(['site/employer-profile']);
                 }
@@ -631,12 +634,479 @@ class SiteController extends Controller
 
     }
 
+    public function actionSearchWork()
+    {
+        $model = new SearchWorkUser();
+
+        if ($this->isUserSearcher() == false and !empty(Yii::$app->user->identity->id_search)) return $this->redirect(['site/error']);
+        elseif (!empty(Yii::$app->user->identity->id_search)) return $this->redirect(['site/worker-profile']);
+        else {
+            if (!empty(Yii::$app->request->post())) {
+
+                $searchName = Yii::$app->request->post()['SearchWorkUser']['searchName'];
+                $searchName = explode(' ', $searchName);
+
+                $model->load(Yii::$app->request->post());
+                $model->firstname = $searchName[1];
+                $model->lastname = $searchName[0];
+                $model->patronymic = $searchName[2];
+                $model->country = Yii::$app->request->post()['SearchWorkUser']['hiddenCountry'];
+                $model->user_id = \Yii::$app->user->identity->id;
+                $model->img = '/images/avatar.png';
+                $model->hide_worker = $model::SHOW_WORK_USER;
+
+                if ($model->save()) {
+                    $userModel = User::findOne(\Yii::$app->user->identity->id);
+                    $userModel->which_user = $model::SEARCH_WORK_USER;
+                    $userModel->id_search = $model->getPrimaryKey();
+                    $userModel->save();
+
+                    return $this->redirect(['site/worker-profile']);
+                }
+            }
+        }
+
+        $specializations = Specializations::find()->asArray()->all();
+        $specializationDropDownArray = ArrayHelper::map($specializations, 'id', 'name');
+
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-ui.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-0.3.0.min.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/searchLocation.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+
+        return $this->render('searchWork', [
+            'model' => $model,
+            'specializationDropDownArray' => $specializationDropDownArray,
+        ]);
+    }
+
+    public function actionWorkerProfile()
+    {
+        if ($this->isUserSearcher() == false) return $this->redirect(['site/error']);
+        else {
+
+            $model = new SearchWorkUser();
+            $likeModel = new LikeVacancies();
+
+            $searchWorkUserModel = $model::find()
+                ->select(['*'])
+                ->where(['user_id' => Yii::$app->user->identity->id])
+                ->leftJoin(['l1' => 'locality'], 'search_work_user.country = l1.id')
+                ->asArray()
+                ->one();
+
+            $summary = Summary::find()
+                ->select(['summary.id', 'l1.title', 'l1.type', 'summary.description', 'summary.wage', 'emp_type.name as emp_name', 'spec.name as spec_name'])
+                ->where(['worker_id' => Yii::$app->user->identity->id_search])
+                ->leftJoin(['l1' => 'locality'], 'summary.country = l1.id')
+                ->leftJoin(['spec' => 'specializations'], 'summary.specialization = spec.id')
+                ->leftJoin(['emp_type' => 'employment_type'], 'summary.employer_type = emp_type.id')
+                ->asArray()
+                ->all();
+
+            $likeModelArray = $likeModel->getLikeVacanciesArrayByLoginUserId();
+
+            $vacancies = Vacancies::find()
+                ->select(['user.email', 'emp_user.user_id', 'vacancies.id', 'l1.title', 'l1.type', 'vacancies.description', 'vacancies.wage', 'emp_type.name as emp_name', 'spec.name as spec_name', 'emp_user.company_name as company_name'])
+                ->where(['vacancies.id' => $likeModelArray])
+                ->leftJoin(['l1' => 'locality'], 'vacancies.country = l1.id')
+                ->leftJoin(['spec' => 'specializations'], 'vacancies.specialization = spec.id')
+                ->leftJoin(['emp_type' => 'employment_type'], 'vacancies.employer_type = emp_type.id')
+                ->leftJoin(['emp_user' => 'employer_users'], 'vacancies.employer_id = emp_user.id')
+                ->leftJoin(['user' => 'user'], 'emp_user.user_id = user.id')
+                ->asArray()
+                ->all();
+
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/workerProfile/workerProfile.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+
+            return $this->render('workerProfile', [
+                'model' => $searchWorkUserModel,
+                'summary' => $summary,
+                'likeModel' => $likeModelArray,
+                'vacancies' => $vacancies
+            ]);
+        }
+    }
+
+    public function actionHideWorker()
+    {
+        if ($this->isUserSearcher() == false) return $this->redirect(['site/error']);
+        else {
+            $model = new SearchWorkUser();
+            $workerUserModel = $model::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+
+            if ($workerUserModel->hide_worker == $model::SHOW_WORK_USER) $workerUserModel->hide_worker = $model::HIDE_WORK_USER;
+            else $workerUserModel->hide_worker = $model::SHOW_WORK_USER;
+
+            $workerUserModel->country = (string)$workerUserModel->country;
+            $workerUserModel->save();
+
+            return $this->redirect(['site/worker-profile']);
+        }
+    }
+
+    public function actionDeleteWorker()
+    {
+        if ($this->isUserSearcher() !== false) {
+            $searchWorkUserModel = SearchWorkUser::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+
+            //delete employer vacancies
+            \Yii::$app
+                ->db
+                ->createCommand()
+                ->delete('summary', ['employer_id' => $searchWorkUserModel->id])
+                ->execute();
+
+            \Yii::$app
+                ->db
+                ->createCommand()
+                ->delete('search_work_user', ['id' => $searchWorkUserModel->id])
+                ->execute();
+
+            \Yii::$app
+                ->db
+                ->createCommand()
+                ->delete('user', ['id' => Yii::$app->user->identity->id])
+                ->execute();
+
+            return $this->redirect(['site/worker-profile']);
+        }
+
+        return $this->redirect(['site/error']);
+    }
+
+    public function actionWorkerSummary()
+    {
+        if ($this->isUserSearcher() !== false) {
+            $model = new Summary();
+
+            if (!empty(Yii::$app->request->post())) {
+                $model->load(Yii::$app->request->post());
+                $model->country = Yii::$app->request->post('Summary')['hiddenCountry'];
+                $model->worker_id = Yii::$app->user->identity->id_search;
+                if ($model->save()) {
+                    return $this->redirect(['site/worker-profile']);
+                }
+            }
+
+            $specializations = Specializations::find()->asArray()->all();
+            $employerType = EmploymentType::find()->asArray()->all();
+            $specializationDropDownArray = ArrayHelper::map($specializations, 'id', 'name');
+            $employmentTypeDropDownArray = ArrayHelper::map($employerType, 'id', 'name');
+
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-ui.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-0.3.0.min.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/searchLocation.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+
+            return $this->render('workerSummary', [
+                'model' => $model,
+                'specializationDropDownArray' => $specializationDropDownArray,
+                'employmentTypeDropDownArray' => $employmentTypeDropDownArray
+            ]);
+        }
+
+        return $this->redirect(['site/error']);
+    }
+
+    public function actionWorkerSummaryDelete($id)
+    {
+        $model = Summary::find()->where(['id' => $id])->one();
+        if (!empty($model) and $model->worker_id == Yii::$app->user->identity->id_search) {
+            \Yii::$app
+                ->db
+                ->createCommand()
+                ->delete('summary', ['id' => $id])
+                ->execute();
+
+            return $this->redirect(['site/worker-profile']);
+        }
+
+        return $this->redirect(['site/error']);
+    }
+
+    public function actionWorkerSummaryEdit($id)
+    {
+        $model = Summary::find()->where(['id' => $id])->one();
+
+        if (!empty($model) and $model->worker_id == Yii::$app->user->identity->id_search) {
+            if (!empty(Yii::$app->request->post())) {
+                $model->load(Yii::$app->request->post());
+                $model->country = Yii::$app->request->post()['Summary']['hiddenCountry'];
+
+                if ($model->save()) {
+                    return $this->redirect(['site/worker-profile']);
+                }
+            }
+
+            $specializations = Specializations::find()->asArray()->all();
+            $employerType = EmploymentType::find()->asArray()->all();
+
+            $specializationDropDownArray = ArrayHelper::map($specializations, 'id', 'name');
+            $employmentTypeDropDownArray = ArrayHelper::map($employerType, 'id', 'name');
+
+            $locality = new Locality();
+            $countryName = $locality->getLocalityNameById($model->country);
+
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-ui.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-0.3.0.min.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/searchLocation.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+
+            return $this->render('workerSummaryEdit', [
+                'model' => $model,
+                'specializationDropDownArray' => $specializationDropDownArray,
+                'employmentTypeDropDownArray' => $employmentTypeDropDownArray,
+                'countryName' => $countryName
+            ]);
+        }
+
+        return $this->redirect(['site/worker-profile']);
+    }
+
+    public function actionEditWorker()
+    {
+        $model = SearchWorkUser::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+
+        if (!empty($model)) {
+            if (!empty(Yii::$app->request->post())) {
+                $searchName = Yii::$app->request->post()['SearchWorkUser']['searchName'];
+                $searchName = explode(' ', $searchName);
+
+                $model->load(Yii::$app->request->post());
+
+                $uploadImage = new UploadImage();
+                $model->image = UploadedFile::getInstances($model, 'image');
+                $imgPath = $uploadImage->uploadImage($model->image);
+
+                if ($imgPath) $model->img = $imgPath;
+
+                $model->firstname = $searchName[1];
+                $model->lastname = $searchName[0];
+                $model->patronymic = $searchName[2];
+                $model->country = Yii::$app->request->post('SearchWorkUser')['hiddenCountry'];
+
+                if ($model->save()) {
+                    return $this->redirect(['site/worker-profile']);
+                }
+            }
+
+            $specializations = Specializations::find()->asArray()->all();
+            $specializationDropDownArray = ArrayHelper::map($specializations, 'id', 'name');
+
+            $locality = new Locality();
+            $countryName = $locality->getLocalityNameById($model->country);
+            $userName = $model->lastname . ' ' . $model->firstname . ' ' . $model->patronymic;
+
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-ui.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-0.3.0.min.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/autocomplete/searchLocation.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+
+            return $this->render('workerEdit', [
+                'model' => $model,
+                'specializationDropDownArray' => $specializationDropDownArray,
+                'countryName' => $countryName,
+                'userName' => $userName
+            ]);
+        }
+
+        return $this->redirect(['site/worker-profile']);
+    }
+
+    public function actionSearch()
+    {
+        $searchModel = new SearchForm();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $specializations = Specializations::find()->asArray()->all();
+        $employerType = EmploymentType::find()->asArray()->all();
+
+        $likeModelArray = array();
+        if (!empty(Yii::$app->user->identity->id)) {
+            if ($this->isUserEmployer() !== false) {
+                $likeModel = new LikeSummary();
+                $likeModelArray = $likeModel->getLikeSummaryArrayByLoginUserId();
+            } elseif ($this->isUserSearcher() !== false) {
+                $likeModel = new LikeVacancies();
+                $likeModelArray = $likeModel->getLikeVacanciesArrayByLoginUserId();
+            }
+        }
+
+        $specializationDropDownArray = ArrayHelper::map($specializations, 'id', 'name');
+        $employmentTypeDropDownArray = ArrayHelper::map($employerType, 'id', 'name');
+
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/search/search.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+
+        $cartList = Yii::$app->request->queryParams['cartlist'];
+        $typeList = Yii::$app->request->queryParams['typelist'];
+
+        $listArray = array();
+        if (!empty($cartList)) {
+            $list = explode(',', $cartList);
+            foreach ($list as $value) {
+                array_push($listArray, $value);
+            }
+        }
+
+        $typeArray = array();
+        if (!empty($typeList)) {
+            $list = explode(',', $typeList);
+            foreach ($list as $value) {
+                array_push($typeArray, $value);
+            }
+        }
+
+        return $this->render('search', [
+            'model' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'specializations' => $specializationDropDownArray,
+            'employerType' => $employmentTypeDropDownArray,
+            'listArray' => $listArray,
+            'typeArray' => $typeArray,
+            'likeModel' => $likeModelArray
+        ]);
+    }
+
+    public function actionProfile($id)
+    {
+        if (!empty(Yii::$app->user->identity->id) and Yii::$app->user->identity->id == $id) return $this->redirect('/site/choose');
+
+        $userModel = User::find()->select(['user.id', 'user.id_spem', 'user.id_search', 'user.which_user'])->where(['id' => $id])->one();
+
+        if (!empty($userModel) and $userModel->which_user == EmployerUsers::EMPLOYER_WHICH_USER) {
+            $model = new EmployerUsers();
+            $employerUserModel = $model::find()
+                ->select(['user.email', 'employer_users.id', 'l1.title', 'l1.type', 'employer_users.webpage', 'employer_users.facebook', 'employer_users.instagram', 'employer_users.twitter', 'employer_users.LinkedIn', 'employer_users.company_name', 'employer_users.img', 'employer_users.company_description', 'employer_users.hide_employer'])
+                ->where(['user_id' => $userModel->id])
+                ->leftJoin(['l1' => 'locality'], 'employer_users.country = l1.id')
+                ->leftJoin('user', 'employer_users.user_id = user.id')
+                ->asArray()
+                ->one();
+
+            $vacancies = Vacancies::find()
+                ->select(['vacancies.id', 'vacancies.description', 'vacancies.wage', 'l1.title', 'l1.type', 'emp_type.name as emp_name', 'spec.name as spec_name'])
+                ->where(['employer_id' => $employerUserModel['id']])
+                ->leftJoin(['l1' => 'locality'], 'vacancies.country = l1.id')
+                ->leftJoin(['spec' => 'specializations'], 'vacancies.specialization = spec.id')
+                ->leftJoin(['emp_type' => 'employment_type'], 'vacancies.employer_type = emp_type.id')
+                ->asArray()
+                ->all();
+
+            $likeModelArray = array();
+            $likeModel = new LikeVacancies();
+            $likeModelArray = $likeModel->getLikeVacanciesArrayByLoginUserId();
+
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/profile/profile.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+
+            return $this->render('profile', [
+                'model' => $employerUserModel,
+                'info' => $vacancies,
+                'likeModel' => $likeModelArray
+            ]);
+
+        } elseif ($userModel->which_user == SearchWorkUser::SEARCH_WORK_USER) {
+            $model = new SearchWorkUser();
+            $searchWorkUserModel = $model::find()
+                ->select(['user.email', 'search_work_user.id', 'l1.title', 'l1.type', 'search_work_user.webpage', 'search_work_user.facebook', 'search_work_user.instagram', 'search_work_user.twitter', 'search_work_user.LinkedIn', 'search_work_user.firstname', 'search_work_user.lastname', 'search_work_user.patronymic', 'search_work_user.img', 'search_work_user.description', 'search_work_user.hide_worker'])
+                ->where(['user_id' => $userModel->id])
+                ->leftJoin(['l1' => 'locality'], 'search_work_user.country = l1.id')
+                ->leftJoin('user', 'search_work_user.user_id = user.id')
+                ->asArray()
+                ->one();
+
+            $summary = Summary::find()
+                ->select(['summary.id', 'l1.title', 'l1.type', 'summary.description', 'summary.wage', 'emp_type.name as emp_name', 'spec.name as spec_name'])
+                ->where(['worker_id' => $userModel->id_search])
+                ->leftJoin(['l1' => 'locality'], 'summary.country = l1.id')
+                ->leftJoin(['spec' => 'specializations'], 'summary.specialization = spec.id')
+                ->leftJoin(['emp_type' => 'employment_type'], 'summary.employer_type = emp_type.id')
+                ->asArray()
+                ->all();
+
+            $likeModelArray = array();
+            $likeModel = new LikeSummary();
+            $likeModelArray = $likeModel->getLikeSummaryArrayByLoginUserId();
+
+            \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/profile/profile.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+
+            return $this->render('profile', [
+                'model' => $searchWorkUserModel,
+                'info' => $summary,
+                'likeModel' => $likeModelArray
+            ]);
+
+        }
+
+        return $this->render('error');
+    }
+
+    public function actionAddLike($id)
+    {
+        //если обратились через ссылку браузера - не пускаем, только по нажатию кнопки!
+        if (!is_null(Yii::$app->request->referrer)) {
+            if ($this->isUserEmployer() !== false) {
+                $model = new LikeSummary();
+                $issetLike = $model->find()->where(['summary_id' => $id])->andWhere(['user_id' => Yii::$app->user->identity->id])->one();
+                if (empty($issetLike)) {
+                    $model->summary_id = $id;
+                    $model->user_id = Yii::$app->user->identity->id;
+                    if ($model->save()) return $this->redirect(Yii::$app->request->referrer);
+                }
+            } elseif ($this->isUserSearcher() !== false) {
+                $model = new LikeVacancies();
+                $issetLike = $model->find()->where(['vacancies_id' => $id])->andWhere(['user_id' => Yii::$app->user->identity->id])->one();
+                if (empty($issetLike)) {
+                    $model->vacancies_id = $id;
+                    $model->user_id = Yii::$app->user->identity->id;
+                    if ($model->save()) return $this->redirect(Yii::$app->request->referrer);
+                }
+            }
+        }
+        return $this->render('error');
+    }
+
+    public function actionRemoveLike($id)
+    {
+        //если обратились через ссылку браузера - не пускаем, только по нажатию кнопки!
+        if (!is_null(Yii::$app->request->referrer)) {
+            if ($this->isUserEmployer() !== false) {
+                $delete = LikeSummary::find()
+                    ->where(['user_id' => Yii::$app->user->identity->id])
+                    ->andwhere(['summary_id' => $id])
+                    ->one();
+                if (!empty($delete)) {
+                    $delete->delete();
+                    return $this->redirect(Yii::$app->request->referrer);
+                }
+
+            } elseif ($this->isUserSearcher() !== false) {
+                $delete = LikeVacancies::find()
+                    ->where(['user_id' => Yii::$app->user->identity->id])
+                    ->andwhere(['vacancies_id' => $id])
+                    ->one();
+                if (!empty($delete)) {
+                    $delete->delete();
+                    return $this->redirect(Yii::$app->request->referrer);
+                }
+            }
+        }
+
+        return $this->render('error');
+    }
+
     public function isUserEmployer()
     {
         $whichUser = Yii::$app->user->identity->which_user;
         $model = new EmployerUsers();
 
         if ($whichUser !== $model::EMPLOYER_WHICH_USER) return false;
+
+        return true;
+    }
+
+    public function isUserSearcher()
+    {
+        $whichUser = Yii::$app->user->identity->which_user;
+        $model = new SearchWorkUser();
+
+        if ($whichUser !== $model::SEARCH_WORK_USER) return false;
 
         return true;
     }

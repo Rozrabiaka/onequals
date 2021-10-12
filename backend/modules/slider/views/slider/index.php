@@ -27,7 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'img_path',
                 'label' => 'Картинка',
-                'value' => ($model->img_path),
+                'value' => function($model){
+                    if(!empty($model->img_path)) return $model->img_path;
+                    else return '';
+                },
                 'format' => ['image', ['width' => '230', 'height' => '200']],
             ],
             'text:ntext',

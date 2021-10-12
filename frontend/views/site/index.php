@@ -2,47 +2,13 @@
 
 /* @var $this yii\web\View */
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 $this->title = 'OnEquals';
 ?>
 
-<div class="home-page-search-block">
+<div class="search-block">
     <div class="container">
         <div class="row">
-            <div class="home-search-block">
-                <div class="search">
-                    <?php
-                    $form = ActiveForm::begin([
-                        'id' => 'search-form',
-                    ]) ?>
-                    <div class="col-xl-4">
-                        <?= $form->field($searchModel, 'search')->textInput(['placeholder' => 'Ключові слова'])->label(false) ?>
-                    </div>
-                    <div class="col-xl-4">
-                        <?= $form->field($searchModel, 'specialization')->dropDownList($specializationDropDownArray, [
-                            'prompt' => 'Спеціалізації'
-                        ])->label(false) ?>
-                    </div>
-
-                    <div class="col-xl-4 search-input">
-                        <?= $form->field($searchModel, 'search')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'search-location'])->label(false) ?>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-6 search-button-block">
-                        <?= Html::submitButton('Знайти', ['class' => 'button blue-button search-button']) ?>
-                    </div>
-                </div>
-
-                <img class="home-search-img-lightning-2" src="/images/lightning-2.png"/>
-                <img class="home-search-img-lightning-1" src="/images/lightning-1.png"/>
-                <img class="home-search-img-start-1" src="/images/star-1.png"/>
-                <img class="home-search-img-start-2" src="/images/star-2.png"/>
-                <?php ActiveForm::end() ?>
-            </div>
+            <?php echo \common\widgets\SearchWidget::widget(); ?>
         </div>
     </div>
 </div>
@@ -51,7 +17,7 @@ $this->title = 'OnEquals';
     <div class="container">
         <div class="row home-buttons-main">
             <div class="col-xl-6">
-                <a href="#">
+                <a href="/site/choose">
                     <div class="smile-button-left">
                         <div class="smile-center-block"><img src="/images/smile-1.png"/><span>Розмістити вакансію</span>
                         </div>
@@ -59,7 +25,7 @@ $this->title = 'OnEquals';
                 </a>
             </div>
             <div class="col-xl-6">
-                <a href="#">
+                <a href="/site/choose">
                     <div class="smile-button-right">
                         <div class="smile-center-block"><span>Розмістити резюме</span><img src="/images/smile-2.png"/>
                         </div>
@@ -164,14 +130,16 @@ $this->title = 'OnEquals';
                 </a>
             </div>
 
-            <div class="home-bottom-text">
-                <p>Також ви можете долучитись до команди, ставши волонтером за такими напрямками: SMM, PR,
-                    Копірайтинг, Адміністрування, свої пропозиції.</p>
+            <div class="col-xl-12">
+                <div class="home-bottom-text">
+                    <p>Також ви можете долучитись до команди, ставши волонтером за такими напрямками: SMM, PR,
+                        Копірайтинг, Адміністрування, свої пропозиції.</p>
 
-                <p> Якщо у вас виникли запитання або ви хочете долучитись до команди «На рівних», пишіть нам на
-                    пошту <a href="mailto:on.equal.project@gmail.com">on.equal.project@gmail.com</a> або у соціальні
-                    мережі в <a href="https://www.facebook.com/onequals/">фейсбук</a> та <a
-                            href="https://www.instagram.com/onequals_ua/">інстаграм</a>.</p>
+                    <p> Якщо у вас виникли запитання або ви хочете долучитись до команди «На рівних», пишіть нам на
+                        пошту <a href="mailto:on.equal.project@gmail.com">on.equal.project@gmail.com</a> або у соціальні
+                        мережі в <a href="https://www.facebook.com/onequals/">фейсбук</a> та <a
+                                href="https://www.instagram.com/onequals_ua/">інстаграм</a>.</p>
+                </div>
             </div>
         </div>
     </div>

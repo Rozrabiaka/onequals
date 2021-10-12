@@ -1,10 +1,6 @@
 <?php
 
-namespace backend\models;
-
-use Yii;
-use common\models\EmployerUsers;
-use common\models\Specializations;
+namespace common\models;
 
 /**
  * This is the model class for table "vacancies".
@@ -84,13 +80,23 @@ class Vacancies extends \yii\db\ActiveRecord
         return $this->hasOne(EmploymentType::className(), ['id' => 'employer_type']);
     }
 
+    public function getCountry()
+    {
+        return $this->hasOne(Locality::className(), ['id' => 'country']);
+    }
+
     /**
      * Gets query for [[Specialization0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getSpecialization0()
+    public function getSpecializations()
     {
         return $this->hasOne(Specializations::className(), ['id' => 'specialization']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(EmployerUsers::className(), ['id' => 'employer_id'])->joinWith('user');
     }
 }

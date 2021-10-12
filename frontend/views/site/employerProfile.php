@@ -1,5 +1,5 @@
 <?php
-
+$this->title = 'OnEquals - Мій профіль';
 ?>
 
 <div class="employer-profile">
@@ -9,12 +9,37 @@
                 <div class="col-xl-3 employer-avatar ">
                     <img src="<?php echo $model['img'] ?>">
                 </div>
-                <div class="col-xl-9 ">
+                <div class="col-xl-9 profile-top-info">
                     <div class="employer-header-info">
                         <h1 class="company-name"><?php echo $model['company_name']; ?></h1>
+                        <p class="profile-webpage"><?php echo $model['webpage'] ?></p>
                         <p>
                             <img src="/images/location.png"/><span><?php echo $model['title'] . ', ' . $model['type'] ?></span>
                         </p>
+                    </div>
+
+                    <div class="social">
+                        <?php if(!empty($model['facebook'])): ?>
+                            <div class="col-xl-3 links">
+                                <a target="_blank" href="<?php echo $model['facebook']; ?>"><img src="/images/facebook-f.png" /> </a>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if(!empty($model['instagram'])): ?>
+                            <div class="col-xl-3 links">
+                                <a target="_blank" href="<?php echo $model['instagram']; ?>"><img src="/images/instagram.png" /> </a>
+                            </div>
+                        <?php endif; ?>
+                        <?php if(!empty($model['twitter'])): ?>
+                            <div class="col-xl-3 links">
+                                <a target="_blank" href="<?php echo $model['twitter']; ?>"><img src="/images/twitter.png" /> </a>
+                            </div>
+                        <?php endif; ?>
+                        <?php if(!empty($model['LinkedIn'])): ?>
+                            <div class="col-xl-3 links">
+                                <a target="_blank" href="<?php echo $model['LinkedIn']; ?>"><img src="/images/linkedin-in.png" /> </a>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -47,8 +72,18 @@
                             </div>
                         </div>
                         <div class="col-xl-8">
-                            <a href="/site/vacancies-employer-edit?id=<?php echo $vac['id'] ?>"><img src="/images/edit-vacancy.png" /></a>
-                            <a href="/site/vacancies-employer-delete?id=<?php echo $vac['id'] ?>"><img src="/images/trash-vacancy.png" /></a>
+                            <div class="em-profile-buttons-vacancies">
+                                <a href="/site/vacancies-employer-edit?id=<?php echo $vac['id'] ?>">
+                                    <div class="vac-prof-but">
+                                        <img src="/images/edit-vacancy.png" />
+                                    </div>
+                                </a>
+                                <a class="a-em-prof-but-delete" href="/site/vacancies-employer-delete?id=<?php echo $vac['id'] ?>">
+                                    <div class="vac-prof-but delete">
+                                        <img src="/images/trash-vacancy.png" />
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -68,7 +103,7 @@
                 </div>
                 <div class="col-xl-6">
                     <div class="div-button-a employer-button-hide employer-paddings-button">
-                        <a class="button" href="/site/hide-employer">
+                        <a class="button" href="/site/hide-worker">
                             <?php if ($model['hide_employer'] == 0): ?>
                                 Приховати сторінку
                             <?php else: ?>
@@ -84,7 +119,7 @@
                 </div>
                 <div class="col-xl-6">
                     <div class="div-button-a employer-remove-button employer-paddings-button">
-                        <a class="button" href="/site/delete-employer">Видалити акаунт</a>
+                        <a class="button" href="/site/delete-worker">Видалити акаунт</a>
                     </div>
                 </div>
             </div>

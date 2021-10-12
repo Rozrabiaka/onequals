@@ -22,7 +22,8 @@ class AjaxController extends Controller
                 unlink(Yii::getAlias('@frontend') . '/web' . $result->img_path);
             }
 
-            $result->delete();
+            $result->img_path = '';
+            $result->save();
 
             return true;
         }

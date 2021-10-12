@@ -2,15 +2,15 @@
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
-$this->title = 'OnEquals - Редагувати вакансію';
+$this->title = 'OnEquals - Редагувати резюме';
 ?>
 
-<div class="site-edit-employer-vacation">
+<div class="site-edit-worker-summary">
     <div class="container">
         <div class="choose-form">
-            <h1>Створити вакансію</h1>
+            <h1>Редагувати резюме</h1>
 
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?php $form = ActiveForm::begin(['id' => 'edit-worker-summary']); ?>
             <div class="row">
                 <div class="col-xl-12">
                     <?= $form->field($model, 'specialization')->dropDownList($specializationDropDownArray, [

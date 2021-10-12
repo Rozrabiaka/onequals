@@ -2,9 +2,8 @@
 
 namespace common\models;
 
-use backend\models\User;
-
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "search_work_user".
@@ -28,6 +27,17 @@ use Yii;
  */
 class SearchWorkUser extends \yii\db\ActiveRecord
 {
+
+    const SEARCH_WORK_USER = 2;
+
+    const HIDE_WORK_USER = 1;
+    const SHOW_WORK_USER = 0;
+
+    public $searchName;
+
+    public $hiddenCountry;
+
+    public $image;
     /**
      * {@inheritdoc}
      */
@@ -42,10 +52,11 @@ class SearchWorkUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstname', 'lastname', 'patronymic', 'specialization', 'facebook', 'instagram', 'twitter', 'LinkedIn', 'country', 'description'], 'required'],
-            [['specialization', 'country', 'user_id'], 'integer'],
-            [['description'], 'string'],
-            [['firstname', 'lastname', 'patronymic', 'facebook', 'instagram', 'twitter', 'LinkedIn'], 'string', 'max' => 255],
+            [['firstname', 'lastname', 'patronymic', 'specialization', 'country', 'description'], 'required'],
+            [['specialization', 'user_id'], 'integer'],
+            [['description', 'img'], 'string'],
+            ['country', 'exist'],
+            [['firstname', 'lastname', 'patronymic', 'facebook', 'instagram', 'twitter', 'LinkedIn', 'webpage'], 'string', 'max' => 255],
             [['specialization'], 'exist', 'skipOnError' => true, 'targetClass' => Specializations::className(), 'targetAttribute' => ['specialization' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -90,16 +101,25 @@ class SearchWorkUser extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
     }
 
-    /**
-     * Gets query for [[User0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser0()
+    public function getWorkerImages()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasMany(self::className(), ['id' => 'id']);
+    }
+
+    public function getImagesLinks()
+    {
+        return ArrayHelper::getColumn($this->workerImages, 'img');
+    }
+
+    public function getImagesLinksData()
+    {
+        return ArrayHelper::toArray($this->workerImages, [
+            SearchWorkUser::className() => [
+                'key' => 'id'
+            ]
+        ]);
     }
 }

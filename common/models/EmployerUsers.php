@@ -2,10 +2,8 @@
 
 namespace common\models;
 
-use common\models\CountCompanyWorkers;
-use common\models\CompanyPopularity;
-
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "employer_users".
@@ -38,7 +36,10 @@ class EmployerUsers extends \yii\db\ActiveRecord
     const EMPLOYER_WHICH_USER = 1;
     const HIDE_EMPLOYER = 1;
     const SHOW_EMPLOYER = 0;
+
     public $hiddenCountry;
+
+    public $image;
 
     /**
      *
@@ -57,7 +58,8 @@ class EmployerUsers extends \yii\db\ActiveRecord
         return [
             [['user_id', 'company_name', 'specialization', 'age_company', 'count_company_workers', 'company_popularity', 'company_description'], 'required'],
             [['user_id', 'specialization', 'age_company', 'count_company_workers', 'company_popularity', 'hide_employer'], 'integer'],
-            [['company_description', 'country', 'img'], 'string'],
+            [['company_description', 'img'], 'string'],
+            ['country', 'safe'],
             [['company_name', 'webpage', 'facebook', 'instagram', 'twitter', 'LinkedIn'], 'string', 'max' => 255],
             [['age_company'], 'exist', 'skipOnError' => true, 'targetClass' => AgeCompany::className(), 'targetAttribute' => ['age_company' => 'id']],
             [['company_popularity'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyPopularity::className(), 'targetAttribute' => ['company_popularity' => 'id']],
@@ -149,5 +151,24 @@ class EmployerUsers extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getEmployerImages()
+    {
+        return $this->hasMany(self::className(), ['id' => 'id']);
+    }
+
+    public function getImagesLinks()
+    {
+        return ArrayHelper::getColumn($this->employerImages, 'img');
+    }
+
+    public function getImagesLinksData()
+    {
+        return ArrayHelper::toArray($this->employerImages, [
+            EmployerUsers::className() => [
+                'key' => 'id'
+            ]
+        ]);
     }
 }

@@ -1,27 +1,26 @@
 <?php
-
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
-use kartik\file\FileInput;
 use yii\helpers\Url;
+use kartik\file\FileInput;
 
-$this->title = 'OnEquals - Редагувати вакансію';
+$this->title = 'OnEquals - Редагувати профіль';
 ?>
 
 <div class="site-edit-employer">
     <div class="container">
         <div class="choose-form">
             <h1>Оновити Інформацію</h1>
-
-            <?php $form = ActiveForm::begin(['id' => 'edit-employer-form']); ?>
+            <?php $form = ActiveForm::begin(['id' => 'search-work-form']); ?>
             <div class="row">
+
                 <div class="col-xl-3 profile-avatar">
                     <?= $form->field($model, 'image')->widget(FileInput::classname(), [
                         'language' => 'ru',
                         'pluginOptions' => [
                             'initialPreview' => $model->imagesLinks,
                             'initialPreviewConfig' => $model->imagesLinksData,
-                            'deleteUrl' => Url::toRoute(['/ajax/delete-employer-avatar-image']),
+                            'deleteUrl' => Url::toRoute(['/ajax/delete-worker-avatar-image']),
                             'browseOnZoneClick' => true,
                             'showCaption' => false,
                             'showRemove' => false,
@@ -38,7 +37,7 @@ $this->title = 'OnEquals - Редагувати вакансію';
                 </div>
 
                 <div class="col-xl-12">
-                    <?= $form->field($model, 'company_name')->textInput(['autofocus' => true, 'placeholder' => 'наприклад, магазин "Сонечко" '])->label('1. Назва компанії / організації / ФОП') ?>
+                    <?= $form->field($model, 'searchName')->textInput(['autofocus' => true, 'placeholder' => 'Яков Якович Яковлєв', 'value' => $userName])->label('1. ПІБ') ?>
                 </div>
 
                 <div class="col-xl-12">
@@ -58,7 +57,7 @@ $this->title = 'OnEquals - Редагувати вакансію';
                 </div>
 
                 <div class="col-xl-12 social-link-employer">
-                    <label>6. Соціальні мережі</label>
+                    <label>5. Соціальні мережі</label>
                     <div class="col-xl-12 col-padding-zero">
                         <?= $form->field($model, 'facebook')->textInput(['placeholder' => 'вставте лінк'])->label('Facebook') ?>
                     </div>
@@ -76,28 +75,8 @@ $this->title = 'OnEquals - Редагувати вакансію';
                     </div>
                 </div>
 
-                <label>7. Оберіть варіант, який вам підходить </label>
-
-                <div class="col-xl-4 col-padding-zero border-block">
-                    <div class="company-info-employer">
-                        <?= $form->field($model, 'age_company')->radioList($listAge)->label('1. Скільки років компанії?'); ?>
-                    </div>
-                </div>
-
-                <div class="col-xl-4 col-padding-zero border-block">
-                    <div class="company-info-employer">
-                        <?= $form->field($model, 'count_company_workers')->radioList($listCountCompany)->label('2. Скільки працівників у вашій команді?'); ?>
-                    </div>
-                </div>
-
-                <div class="col-xl-4 col-padding-zero border-block">
-                    <div class="company-info-employer">
-                        <?= $form->field($model, 'company_popularity')->radioList($listCompanyPopularity)->label('2. Скільки працівників у вашій команді?'); ?>
-                    </div>
-                </div>
-
                 <div class="col-xl-12 ">
-                    <?= $form->field($model, 'company_description')->textarea(['placeholder' => 'до 1000 знаків'])->label('8. Розкажіть про себе більше (про умови праці у вашій команді, про ваші цінності, про сприятливі умови для людей з інвалідністю)') ?>
+                    <?= $form->field($model, 'description')->textInput(['placeholder' => 'до 1000 знаків'])->label('6. Розкажіть про себе більше (про умови праці у вашій команді, про ваші цінності, про сприятливі умови для людей з інвалідністю)') ?>
                 </div>
 
                 <div class="col-xl-6 save-profile-block">
@@ -105,7 +84,6 @@ $this->title = 'OnEquals - Редагувати вакансію';
                         <?= Html::submitButton('Зберегти і далі! ', ['class' => 'button save-profile-button', 'name' => 'signup-button']) ?>
                     </div>
                 </div>
-
             </div>
             <?php ActiveForm::end(); ?>
         </div>

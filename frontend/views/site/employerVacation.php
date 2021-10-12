@@ -2,7 +2,7 @@
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
-$this->title = 'Створити вакансію';
+$this->title = 'OnEquals - Створити вакансію';
 ?>
 <div class="site-employer-vacation">
     <div class="container">
