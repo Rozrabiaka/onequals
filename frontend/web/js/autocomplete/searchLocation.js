@@ -1,9 +1,12 @@
 jQuery(document).ready(function () {
 
     jQuery('.search-location').on('input', function () {
+        if (jQuery('.search-location').val().length === 0) jQuery('.country-js-hidden-id').val('');
         jQuery('.search-location').autocomplete({
             appendTo: '.search-input',
-            open: function() { jQuery('#div .ui-menu').width(300) },
+            open: function () {
+                jQuery('#div .ui-menu').width(300)
+            },
             source: function (request, response) {
                 const keyword = jQuery('.search-location').val();
                 jQuery.ajax({
@@ -21,15 +24,15 @@ jQuery(document).ready(function () {
                             jQuery.each(jsonData, function (arKey, arValue) {
                                 autocompleteString = arValue.loctitle + ' ' + arValue.loctype + ' ';
 
-                                if(arValue.title !== null)
+                                if (arValue.title !== null)
                                     autocompleteString = autocompleteString + arValue.title + ' ';
-                                if(arValue.type !== null)
+                                if (arValue.type !== null)
                                     autocompleteString = autocompleteString + arValue.type;
 
-                                obj =  {
-                                    'id':arValue.id,
-                                    'value':autocompleteString,
-                                    'label':autocompleteString
+                                obj = {
+                                    'id': arValue.id,
+                                    'value': autocompleteString,
+                                    'label': autocompleteString
                                 }
 
                                 autocomplete[arValue.id] = obj;
@@ -53,11 +56,6 @@ jQuery(document).ready(function () {
                     jQuery("ul.ui-autocomplete").show();
                 }
             },
-            // search: function (event, ui) {
-            //     jQuery("ul.ui-autocomplete").hide();
-            //     jQuery(".no-match").hide();
-            //     jQuery('.address-loader').show();
-            // },
         });
         jQuery("#new-form-address").autocomplete("enable");
     });
