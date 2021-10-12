@@ -818,6 +818,30 @@ a.desc:after {
 .profile-info-block{
     margin-bottom:100px;
 }
+.sorter-lvsp{
+    display: flex;
+    flex-direction: row;
+}
+.sorter-lvsp-list, .summary-sorter-lvsp{
+    flex-grow: 1
+}
+.sorter-lvsp-list .sorter{
+    padding-left:0;
+}
+.sorter-lvsp-list ul li:nth-child(2){
+    padding-left: 60px;
+}
+.sorter-lvsp-list ul li a{
+    color:#000;
+}
+.sorter-lvsp-list ul li a:hover{
+    text-decoration: none;
+}
+.sorter-lvsp-list .asc, .sorter-lvsp-list .desc{
+    background-color: #FED849;
+    border-radius: 100px;
+    padding: 0 10px;
+}
 /* MEDIA */
 
 @media screen and (max-width: 1400px){

@@ -58,7 +58,8 @@ class Summary extends \yii\db\ActiveRecord
             'company_name' => 'Company Name',
             'specialization' => 'Specialization',
             'country' => 'Country',
-            'wage' => 'Wage',
+            'wage' => 'За зарплатою',
+            'date' => 'За датою',
             'description' => 'Description',
             'employer_type' => 'Employer Type',
         ];

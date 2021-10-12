@@ -54,7 +54,8 @@ class Vacancies extends \yii\db\ActiveRecord
             'employer_id' => 'Employer ID',
             'specialization' => 'Specialization',
             'country' => 'Country',
-            'wage' => 'Wage',
+            'wage' => 'За зарплатою',
+            'date' => 'За датою',
             'description' => 'Description',
             'employer_type' => 'Employer Type',
         ];

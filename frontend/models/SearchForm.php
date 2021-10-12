@@ -81,6 +81,8 @@ class SearchForm extends \yii\base\Model
             ],
         ]);
 
+        $dataProvider->setSort(['attributes' => ['date','wage']]);
+
         return $dataProvider;
     }
 }

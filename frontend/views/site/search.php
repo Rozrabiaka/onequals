@@ -39,7 +39,6 @@ $this->title = 'OnEquals - Список резюме';
                             'dataProvider' => $dataProvider,
                             'layout' => "{sorter}",
                             'sorter' => [
-                                //'date' => 'date'
                             ],
                             'options' => [
                                 'class' => 'sorter-list',
