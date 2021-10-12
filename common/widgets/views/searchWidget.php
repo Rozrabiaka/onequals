@@ -12,21 +12,21 @@ use yii\widgets\ActiveForm;
             'method' => 'get'
         ]) ?>
         <div class="col-xl-4">
-            <?= $form->field($searchModel, 'search')->textInput(['placeholder' => 'Ключові слова', 'value' => Yii::$app->request->queryParams['SearchForm']['search']])->label(false) ?>
+            <?=$form->field($searchModel, 'search')->textInput(['placeholder' => 'Ключові слова', 'value' => empty(Yii::$app->request->queryParams['SearchForm']['search']) ? '' : Yii::$app->request->queryParams['SearchForm']['search']])->label(false) ?>
         </div>
 
         <div class="col-xl-4">
             <?= $form->field($searchModel, 'specialization')->dropDownList($specializationDropDownArray, [
                 'prompt' => 'Спеціалізації',
-                'value' => Yii::$app->request->queryParams['SearchForm']['specialization']
+                'value' => empty(Yii::$app->request->queryParams['SearchForm']['specialization']) ? '' :  Yii::$app->request->queryParams['SearchForm']['specialization']
             ])->label(false) ?>
         </div>
 
         <div class="col-xl-4 search-input">
-            <?= $form->field($searchModel, 'city')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'search-location', 'value' => Yii::$app->request->queryParams['SearchForm']['city']])->label(false) ?>
+            <?= $form->field($searchModel, 'city')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'search-location', 'value' => empty(Yii::$app->request->queryParams['SearchForm']['city']) ? '' : Yii::$app->request->queryParams['SearchForm']['city']])->label(false) ?>
         </div>
 
-        <?= $form->field($searchModel, 'hiddenCountry')->hiddenInput(['class' => 'country-js-hidden-id', 'value' => $model->country])->label(false) ?>
+        <?= $form->field($searchModel, 'hiddenCountry')->hiddenInput(['class' => 'country-js-hidden-id', 'value' => empty(Yii::$app->request->queryParams['SearchForm']['hiddenCountry']) ? '' : Yii::$app->request->queryParams['SearchForm']['hiddenCountry']])->label(false)  ?>
     </div>
 
     <div class="form-group">
