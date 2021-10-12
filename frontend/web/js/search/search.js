@@ -29,6 +29,8 @@ jQuery(document).ready(function () {
         let replaceString = '';
         let replaceUndefinedString = '';
 
+        cartListUrl = cartListUrl.replace('%2C', ',');
+
         selectedId = selectedId.split("-")[1];
 
         if (paramName === 'cartlist') {
@@ -48,14 +50,12 @@ jQuery(document).ready(function () {
             const cartListArray = cartListUrl.split(',');
             if (jQuery.inArray(selectedId, cartListArray) === -1) {
                 cartListUrl = cartListUrl + ',' + selectedId;
-                console.log(cartListUrl);
                 url = url.replace(replaceString, '$1' + cartListUrl);
             } else {
                 const newCartListArray = jQuery.grep(cartListArray, function (value) {
                     return value !== selectedId;
                 });
                 const newCartList = newCartListArray.join(",");
-                console.log(newCartList);
                 url = url.replace(replaceString, '$1' + newCartList);
             }
         }
