@@ -46,8 +46,8 @@ class SearchForm extends \yii\base\Model
                 ->joinWith('user');
         }
 
-        if (!empty($searchParams['specialization'])) $query->andWhere(['summary.specialization' => (int)$searchParams['specialization']]);
-        if (!empty($searchParams['hiddenCountry'])) $query->andWhere(['summary.country' => $searchParams['hiddenCountry']]);
+        if (!empty($searchParams['specialization'])) $query->andWhere([$tableName . '.specialization' => (int)$searchParams['specialization']]);
+        if (!empty($searchParams['hiddenCountry'])) $query->andWhere([$tableName . '.country' => $searchParams['hiddenCountry']]);
 
         if (!empty($params['cartlist'])) {
             $cartList = $params['cartlist'];
