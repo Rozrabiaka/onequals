@@ -1133,6 +1133,14 @@ a.desc:after {
         left: calc(-53px + 72.5vw);
         width: calc(36px + 3.8vw);
     }
+
+    .info-header-title{
+        font-size: 56px;
+    }
+
+    .info-header-text{
+        font-size: 26px;
+    }
 }
 
 @media screen and (max-width: 320px) {
@@ -1150,6 +1158,14 @@ a.desc:after {
         top: calc(320px + 125.6vw);
         left: calc(-53px + 72.5vw);
         width: calc(36px + 3.8vw);
+    }
+
+    .info-header-title{
+        font-size: 50px;
+    }
+
+    .info-header-text{
+        font-size: 22px;
     }
 }
 
