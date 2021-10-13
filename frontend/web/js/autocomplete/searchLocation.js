@@ -1,5 +1,4 @@
 jQuery(document).ready(function () {
-
     jQuery('.search-location').on('input', function () {
         if (jQuery('.search-location').val().length === 0) jQuery('.country-js-hidden-id').val('');
         jQuery('.search-location').autocomplete({
@@ -59,6 +58,4 @@ jQuery(document).ready(function () {
         });
         jQuery("#new-form-address").autocomplete("enable");
     });
-
-    console.log('wroking');
 });

@@ -195,13 +195,22 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            return $this->render('signupSuccess');
         }
 
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    public function actionPrivacyPolicy()
+    {
+        return $this->render('privacyPolicy');
+    }
+
+    public function actionTermsOfUse()
+    {
+        return $this->render('termsOfUse');
     }
 
     /**
@@ -929,6 +938,7 @@ class SiteController extends Controller
     {
         $searchModel = new SearchForm();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $maxPrice = $searchModel->getMaxPrice();
 
         $specializations = Specializations::find()->asArray()->all();
         $employerType = EmploymentType::find()->asArray()->all();
@@ -946,8 +956,6 @@ class SiteController extends Controller
 
         $specializationDropDownArray = ArrayHelper::map($specializations, 'id', 'name');
         $employmentTypeDropDownArray = ArrayHelper::map($employerType, 'id', 'name');
-
-        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/search/search.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
 
         $cartList = Yii::$app->request->queryParams['cartlist'];
         $typeList = Yii::$app->request->queryParams['typelist'];
@@ -968,14 +976,18 @@ class SiteController extends Controller
             }
         }
 
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/search/jquery-ui.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/search/search.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerCssFile(Yii::$app->request->baseUrl . '/css/jquery-ui.css', ['position' => \yii\web\View::POS_END]);
+
         return $this->render('search', [
-            'model' => $searchModel,
             'dataProvider' => $dataProvider,
             'specializations' => $specializationDropDownArray,
             'employerType' => $employmentTypeDropDownArray,
             'listArray' => $listArray,
             'typeArray' => $typeArray,
-            'likeModel' => $likeModelArray
+            'likeModel' => $likeModelArray,
+            'maxPrice' => $maxPrice
         ]);
     }
 

@@ -1,7 +1,6 @@
 <?php
 
 use yii\widgets\ListView;
-use kartik\slider\Slider;
 
 $this->title = 'OnEquals - Список резюме';
 ?>
@@ -20,7 +19,7 @@ $this->title = 'OnEquals - Список резюме';
                 <div class="sorter-lvsp">
                     <div class="summary-sorter-lvsp">
                         <p class="sorter-info-text">Всього: </p>
-                        <?php
+                        <?
                         echo ListView::widget([
                             'dataProvider' => $dataProvider,
                             'layout' => "{summary}",
@@ -28,6 +27,7 @@ $this->title = 'OnEquals - Список резюме';
                             'options' => [
                                 'class' => 'summary-list',
                             ],
+                            'emptyText' => 'Результатів не знайдено'
                         ]);
                         ?>
                     </div>
@@ -39,10 +39,12 @@ $this->title = 'OnEquals - Список резюме';
                             'dataProvider' => $dataProvider,
                             'layout' => "{sorter}",
                             'sorter' => [
+
                             ],
                             'options' => [
                                 'class' => 'sorter-list',
                             ],
+                            'emptyText' => 'Результатів не знайдено'
                         ]);
                         ?>
                     </div>
@@ -53,6 +55,7 @@ $this->title = 'OnEquals - Список резюме';
                     'itemView' => '_viewSearch',
                     'viewParams' => ['likeModel' => $likeModel],
                     'layout' => "{items}\n{pager}",
+                    'emptyText' => false,
                     'pager' => [
                         'prevPageLabel' => '
                         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
@@ -97,19 +100,20 @@ $this->title = 'OnEquals - Список резюме';
 
                 <div class="price-list">
                     <h3 class="list-search-h3">Зарплата:</h3>
+                    <div id="slider-container-search-price"></div>
+                    <div class="pl-jq-list">
+                        <div class="pl-jq-price-from pl-jq-price-filter">
+                            <p style="color:#999">Від:</p>
+                            <p id="from"></p>
+                        </div>
+                        <div class="pl-jq-price-to pl-jq-price-filter">
+                            <p style="color:#999">До:</p>
+                            <p id="to"></p>
+                        </div>
 
-                    <?php
-                    echo '<b class="badge">$10</b> ' . Slider::widget([
-                            'name' => 'rating_3',
-                            'value' => '250,650',
-                            'sliderColor' => Slider::TYPE_GREY,
-                            'pluginOptions' => [
-                                'min' => 10,
-                                'max' => 1000,
-                                'range' => true
-                            ],
-                        ]) . ' <b class="badge">$1,000</b>';
-                    ?>
+                        <input type="hidden" class="search-max-price" value="<?php echo $maxPrice; ?>"/>
+                    </div>
+                    <div id="slider-range"></div>
                 </div>
             </div>
         </div>

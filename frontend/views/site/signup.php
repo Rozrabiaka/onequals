@@ -32,6 +32,10 @@ $this->title = 'Signup';
                     <?= $form->field($model, 'confirm_password')->passwordInput(['placeholder' => "Підтвердити пароль"])->label(false) ?>
                 </div>
 
+                <div class="col-xl-12">
+                    <p>Натискаючи кнопку «Зареєструватися», ви приймаєте умови користування та умови конфіденційності.</p>
+                </div>
+
                 <div class="col-xl-6">
                     <div class="form-group">
                         <?= Html::submitButton('Зареєструватися', ['class' => 'button yellow-button', 'name' => 'signup-button']) ?>

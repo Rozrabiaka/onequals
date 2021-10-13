@@ -7,16 +7,16 @@ use yii\helpers\Html;
 $this->title = 'Про нас';
 ?>
 <div class="container">
-    <div class="row info info-header">
-        <div class="col-sm-8">
+    <div class="row info-header">
+        <div class="col-md-8">
             <h1 class="info-header-title">Команда</h1>
             <span class="info-header-text">Ми команда кроссекторального соціального проєкту “На рівних”.Познайомимось?</span>
         </div>
-        <div class="col-sm-3">
+        <div class="col-md-4">
             <img class="info-header-image" src="/images/about-smile.png" alt="">
         </div>
     </div>
-    <div class="row info">
+    <div class="row" style="text-align: center">
         <div class="col-xl-4 info-square">
             <div style= "background-color: #FDD749" class="info-square-text">Тут буде красиве фото</div>
             <div class="info-square-people-text">Злата Єфіменко</div>

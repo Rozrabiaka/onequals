@@ -65,15 +65,25 @@ class SearchForm extends \yii\base\Model
             }
         }
 
-//        $query->filterWhere([
-//            'and',
-//            ['>', 'somePriceAttr', $this->price[0]],
-//            ['<', 'somePriceAttr', $this->price[1]]
-//        ]);
+        if (!empty($params['price'])) {
+            $priceList = $params['price'];
+            $price = explode(',', $priceList);
+            if (count($price) == 2) {
+                $from = (int)$price[0];
+                $to = (int)$price[1];
+                if (($from >= 0 and $from < 1000000 and $from < $to) and ($to > 0 and $to < 1000000 and $to > $from)) {
+                    $query->andWhere([
+                        'and',
+                        ['>', $tableName . '.wage', $from],
+                        ['<', $tableName . '.wage', $to]
+                    ]);
+                }
+            }
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => array('pageSize' => 1),
+            'pagination' => array('pageSize' => 10),
             'sort' => [
                 'defaultOrder' => [
                     'date' => SORT_ASC
@@ -81,8 +91,21 @@ class SearchForm extends \yii\base\Model
             ],
         ]);
 
-        $dataProvider->setSort(['attributes' => ['date','wage']]);
+        $dataProvider->setSort(['attributes' => ['date', 'wage']]);
 
         return $dataProvider;
+
+    }
+
+    public function getMaxPrice()
+    {
+        $maxPrice = 0;
+        if (!empty(Yii::$app->user->identity->which_user) and Yii::$app->user->identity->which_user == EmployerUsers::EMPLOYER_WHICH_USER) {
+            $maxPrice = Summary::find()->max('wage');
+        } else {
+            $maxPrice = Vacancies::find()->max('wage');
+        }
+
+        return $maxPrice;
     }
 }

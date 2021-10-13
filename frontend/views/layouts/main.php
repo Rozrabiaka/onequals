@@ -8,8 +8,7 @@ use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -27,37 +26,78 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
 
     <header>
-        <?php
-        NavBar::begin([
-            'brandLabel' => Yii::$app->name,
-            'brandUrl' => Yii::$app->homeUrl,
-            'options' => [
-                'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-            ],
-        ]);
-        $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-        ];
-        if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-        } else {
-            $menuItems[] = '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>';
-        }
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav'],
-            'items' => $menuItems,
-        ]);
-        NavBar::end();
-        ?>
+        <div class="header-logo">
+            <a href="<?php echo Url::home(); ?>"><img src="/images/logo.png"></a>
+        </div>
+        <div class="header-logo-small">
+            <a href="<?php echo Url::home(); ?>"><img src="/images/logo2.png"></a>
+        </div>
+        <div class="header-panel">
+            <div class="header-info-panel">
+                <?php
+                if (!empty(Yii::$app->user->identity)): ?>
+                    <?php if (Yii::$app->user->identity->which_user == 1): ?>
+                        <a href="/site/employer-profile">Профіль</a>
+                    <?php elseif (Yii::$app->user->identity->which_user == 2): ?>
+                        <a href="/site/worker-profile">Профіль</a>
+                    <?php else: ?>
+                        <a href="/site/choose">Профіль</a>
+                    <?php endif; ?>
+
+                    <?php
+                    echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                        . Html::submitButton(
+                            'Вийти',
+                            ['class' => 'btn btn-link logout']
+                        )
+                        . Html::endForm();
+                    ?>
+
+                <?php else: ?>
+                    <a href="/site/signup" class="register-button">Зареєструватися</a>
+                    <a href="/site/login" class="login-button">Увійти</a>
+                <?php endif ?>
+            </div>
+            <div class="header-nav">
+                <a href="#"><img src="/images/nav.png"/></a>
+            </div>
+        </div>
+
+        <div class="modalMenu">
+            <div class="container">
+                <div class="row">
+                    <div class="close-model col-xl-12">
+                        <span class="close-model-menu">✕</span>
+                    </div>
+
+                    <div class="col-sm-6 mobile-menu-blocks">
+                        <a class="size-mobile-header" href="/site/about">Про нас</a>
+                    </div>
+                    <div class="col-sm-6 mobile-menu-blocks">
+                        <p class="size-mobile-header">Журнал</p>
+                        <ul>
+                            <li><a href="/site/about">Шукачам</a></li>
+                            <li><a href="/site/about">Роботодавцям</a></li>
+                            <li><a href="/site/about">Законодавство</a></li>
+                            <?php if (!empty(Yii::$app->user->identity)): ?>
+                                <li><?php
+                                    echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                                        . Html::submitButton(
+                                            'Вийти',
+                                            ['class' => 'btn btn-link logout']
+                                        )
+                                        . Html::endForm();
+                                    ?></li>
+                            <?php else: ?>
+                                <li><a href="/site/signup">Зареєструватися</a></li>
+                                <li><a href="/site/login">Увійти</a></li>
+                            <?php endif; ?>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
     <main role="main" class="flex-shrink-0">
@@ -84,7 +124,13 @@ AppAsset::register($this);
                 </div>
             </div>
         </div>
-        <div class="footer-scroll"><a href="#w0" class="button yellow-button footer-button-scroll">на початок ↑ </a></div>
+        <div class="footer-scroll"><a href="#w0" class="button yellow-button footer-button-scroll">на початок ↑ </a>
+        </div>
+
+        <div  class="footer-pp">
+            <a href="/site/terms-of-use">Умови користування</a>
+            <a href="/site/privacy-policy">Умови конфіденційності</a>
+        </div>
     </footer>
 
     <?php $this->endBody() ?>

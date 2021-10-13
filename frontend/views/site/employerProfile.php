@@ -103,7 +103,7 @@ $this->title = 'OnEquals - Мій профіль';
                 </div>
                 <div class="col-xl-6">
                     <div class="div-button-a employer-button-hide employer-paddings-button">
-                        <a class="button" href="/site/hide-worker">
+                        <a class="button" href="/site/hide-employer">
                             <?php if ($model['hide_employer'] == 0): ?>
                                 Приховати сторінку
                             <?php else: ?>
@@ -119,7 +119,7 @@ $this->title = 'OnEquals - Мій профіль';
                 </div>
                 <div class="col-xl-6">
                     <div class="div-button-a employer-remove-button employer-paddings-button">
-                        <a class="button" href="/site/delete-worker">Видалити акаунт</a>
+                        <a class="button" href="/site/delete-employer">Видалити акаунт</a>
                     </div>
                 </div>
             </div>

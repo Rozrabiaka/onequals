@@ -2,7 +2,7 @@
 
 namespace backend\modules\vacancies\controllers;
 
-use backend\models\Vacancies;
+use common\models\Vacancies;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
