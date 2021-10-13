@@ -81,13 +81,13 @@ $this->title = 'Про нас';
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-xl-3"><img src="/images/about-1.png" alt=""></div>
+            <div class="col-xl-3"><img class="img-responsive center-block d-block mx-auto" src="/images/about-1.png" alt=""></div>
             <div class="col-xl-9 steps-text">Соціологічне дослідження, що слугувало розвідкою щодо ролі корпоративної культури у створенні сприятливих умов для працевлаштування людей з інвалідністю. Скоро ви зможете побачити результати у відкритому доступі.</div>
-            <div class="col-xl-3"><img src="/images/about-2.png" alt=""></div>
+            <div class="col-xl-3"><img class="img-responsive center-block d-block mx-auto" src="/images/about-2.png" alt=""></div>
             <div class="col-xl-9 steps-text">Платформа з пошуку вакансій. Ми намагалися створити сайт, який був би зрозумілим та простим у використанні, доступним для кожного та кожної. Він буде постійно оновлюватися корисною інформацією для шукачів_ок та роботодавців_чинь, а також вакансіями, які передбачають надання робочих місць для людей з інвалідністю. Сподіваємося на підтримку зі сторони компаній та розширення кола професійних можливостей для шукачів_ок.</div>
-            <div class="col-xl-3"><img src="/images/about-3.png" alt=""></div>
+            <div class="col-xl-3"><img class="img-responsive center-block d-block mx-auto" src="/images/about-3.png" alt=""></div>
             <div class="col-xl-9 steps-text">Серія соціальних відеороликів. Ролики висвітлюватимуть круті кейси працевлаштування людей з різним типом інвалідності у різних сферах ринку праці. Вони виступатимуть мотивацією для тих, хто зневірився у можливості знайти місце роботи за своїми професійними якостями або ж зіштовхнувся_лася з негативним досвідом працевлаштування.</div>
-            <div class="col-xl-3"><img src="/images/about-4.png" alt=""></div>
+            <div class="col-xl-3"><img class="img-responsive center-block d-block mx-auto" src="/images/about-4.png" alt=""></div>
             <div class="col-xl-9 steps-text">Документальний короткометражний фільм про буденність та історії працевлаштування людей з інвалідністю. Цим фільмом ми хочемо показати захопливі історії 5 різних героїв та героїнь: їх незвичайні хобі, цікаву роботу, друзів, родину.</div>
         </div>
     </div>
