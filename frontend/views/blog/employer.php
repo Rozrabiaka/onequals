@@ -12,8 +12,8 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <img class ="blog-image blog-employer-star" src="/images/blog-stars.png" alt="">
                 <img class ="blog-image blog-employer-pic"  src="/images/blog-employer.png" alt="">
+                <img class ="blog-image blog-employer-star" src="/images/blog-stars.png" alt="">
             </div>
     </div>
 </div>

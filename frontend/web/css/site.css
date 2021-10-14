@@ -1029,7 +1029,6 @@ a.desc:after {
 
 .blog-employer-pic{
     position: absolute;
-    -webkit-transform: rotate(18.11deg);
     top: 25px;
     right: 0;
     max-width: 750px;
@@ -1234,14 +1233,44 @@ a.desc:after {
 }
 
 @media screen and (max-width: 1200px){
-    .blog-image{
-        display: none;
-    }
 }
 
 @media screen and (max-width: 950px){
     .header-logo a img{
        width:300px;
+    }
+
+    .blog-summary-pic{
+        top:150px;
+        max-width: 350px;
+    }
+
+    .blog-employer-pic{
+        top:150px;
+        max-width: 300px;
+    }
+
+    .blog-legislation-pic{
+        top:150px;
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 780px){
+    .header-logo a img{
+        width:300px;
+    }
+
+    .blog-summary-pic{
+        display: none;
+    }
+
+    .blog-employer-pic{
+        display: none;
+    }
+
+    .blog-legislation-pic{
+        display: none;
     }
 }
 
