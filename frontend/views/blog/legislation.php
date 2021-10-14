@@ -12,8 +12,8 @@
                 </div>
             </div>
             <div class="col-xl-8">
-                <img class ="blog-image blog-legislation-star" src="/images/blog-legislation.png" alt="">
-                <img class ="blog-image blog-legislation-pic" src="/images/blog-star-legislation.png" alt="">
+                <img class ="blog-image blog-legislation-pic" src="/images/blog-legislation.png" alt="">
+                <img class ="blog-image blog-legislation-star" src="/images/blog-star-legislation.png" alt="">
             </div>
         </div>
     </div>

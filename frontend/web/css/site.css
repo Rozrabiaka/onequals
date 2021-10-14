@@ -1025,7 +1025,6 @@ a.desc:after {
     position:absolute;
     top: 98px;
     right: 690px;
-    width: calc(75px + 0.7vw);
 }
 
 .blog-employer-pic{
@@ -1038,8 +1037,8 @@ a.desc:after {
 
 .blog-legislation-star{
     position: absolute;
-    top: calc(304px - 15.4vw);
-    right: calc(-307px + 9.4vw);
+    top: 25px;
+    left: 300px;
 }
 
 .blog-legislation-pic{
