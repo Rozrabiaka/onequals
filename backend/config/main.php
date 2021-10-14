@@ -54,6 +54,9 @@ return [
         'bloglegislation' => [
             'class' => 'backend\modules\bloglegislation\Module',
         ],
+        'history' => [
+            'class' => 'backend\modules\history\Module',
+        ],
     ],
     'components' => [
         'authManager' => [
