@@ -1001,6 +1001,11 @@ a.desc:after {
     padding-top: 80px;
     margin-bottom: 120px;
 }
+
+.blog-header-text{
+    padding: 160px 40px 120px 40px;
+}
+
 .price-list .slider.slider-horizontal .slider-track{
     height:1px;
     margin-top:6px;
@@ -1183,6 +1188,12 @@ a.desc:after {
     }
     .ukf{
         margin-top:50px !important;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .blog-image{
+        display: none;
     }
 }
 
