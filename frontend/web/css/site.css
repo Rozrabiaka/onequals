@@ -1006,6 +1006,49 @@ a.desc:after {
     padding: 160px 40px 120px 40px;
 }
 
+.blog-summary-star{
+    position:absolute;
+    top: 98px;
+    right: 730px;
+    width: calc(75px + 0.7vw);
+}
+
+.blog-summary-pic{
+    position: absolute;
+    -webkit-transform: rotate(-0.89deg);
+    top: 25px;
+    max-width: 750px;
+    right: 0;
+}
+
+.blog-employer-star{
+    position:absolute;
+    top: 98px;
+    right: 690px;
+    width: calc(75px + 0.7vw);
+}
+
+.blog-employer-pic{
+    position: absolute;
+    -webkit-transform: rotate(18.11deg);
+    top: 25px;
+    right: 0;
+    max-width: 750px;
+}
+
+.blog-legislation-star{
+    position: absolute;
+    top: calc(304px - 15.4vw);
+    right: calc(-307px + 9.4vw);
+}
+
+.blog-legislation-pic{
+    position:absolute;
+    top: 25px;
+    right: 0px;
+    max-width: 750px;
+}
+
 .price-list .slider.slider-horizontal .slider-track{
     height:1px;
     margin-top:6px;
