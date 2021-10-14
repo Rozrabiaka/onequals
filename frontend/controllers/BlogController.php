@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\BlogSummary;
 use yii\web\Controller;
 
 /**
@@ -41,6 +42,7 @@ class BlogController extends Controller
 
     public function actionSummary()
     {
+        $model = BlogSummary::find()->all();
         return $this->render('summary');
     }
 

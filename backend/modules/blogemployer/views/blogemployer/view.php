@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($model->page_name) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['/page/page/update', 'id' => $model->id, 'category'=> $model->blog_category], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['/page/page/update', 'id' => $model->id, 'category'=> \backend\models\CreateBlog::BLOG_CATEGORY_EMPLOYER], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -33,10 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:html',
             'author_name',
             'page_name',
-            [
-                'attribute' => 'blog_category',
-                'value' => function () {return 'Роботодавцям';},
-            ],
             [
                 'attribute' => 'second_blog_category',
                 'value' => function ($model) {

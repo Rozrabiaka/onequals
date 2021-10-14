@@ -16,6 +16,8 @@ use Yii;
  */
 class BlogEmployer extends \yii\db\ActiveRecord
 {
+    public $blog_category;
+
     /**
      * {@inheritdoc}
      */
@@ -30,9 +32,9 @@ class BlogEmployer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'page_name', 'blog_category', 'second_blog_category'], 'required'],
+            [['description', 'page_name', 'second_blog_category'], 'required'],
             [['description'], 'string'],
-            [['author_name', 'page_name', 'blog_category', 'second_blog_category'], 'string', 'max' => 255],
+            [['author_name', 'page_name', 'second_blog_category'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,7 +48,6 @@ class BlogEmployer extends \yii\db\ActiveRecord
             'description' => 'Description',
             'author_name' => 'Author Name',
             'page_name' => 'Page Name',
-            'blog_category' => 'Blog Category',
             'second_blog_category' => 'Second Blog Category',
         ];
     }
