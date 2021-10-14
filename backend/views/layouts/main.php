@@ -28,7 +28,7 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'OnEquals',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
@@ -48,6 +48,10 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Шукачі', 'url' => ['/searchworkuser/searchworkuser']];
         $menuItems[] = ['label' => 'Користувачі (RBAC)', 'url' => ['/user/user']];
         $menuItems[] = ['label' => 'Слайдер (Головна)', 'url' => ['/slider/slider']];
+        $menuItems[] = ['label' => 'Створити блог', 'url' => ['/page/page']];
+        $menuItems[] = ['label' => 'Блог шукача', 'url' => ['/blogsummary/blogsummary']];
+        $menuItems[] = ['label' => 'Блог роботодавця', 'url' => ['/blogemployer/blogemployer']];
+        $menuItems[] = ['label' => 'Блог законодавства', 'url' => ['/bloglegislation/bloglegislation']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
@@ -77,8 +81,7 @@ AppAsset::register($this);
 
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
-        <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
+        <p class="float-left">&copy; OnEquals <?= date('Y') ?></p>
     </div>
 </footer>
 

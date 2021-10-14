@@ -42,6 +42,18 @@ return [
         'slider' => [
             'class' => 'backend\modules\slider\Module',
         ],
+        'page' => [
+            'class' => 'backend\modules\page\Module',
+        ],
+        'blogsummary' => [
+            'class' => 'backend\modules\blogsummary\Module',
+        ],
+        'blogemployer' => [
+            'class' => 'backend\modules\blogemployer\Module',
+        ],
+        'bloglegislation' => [
+            'class' => 'backend\modules\bloglegislation\Module',
+        ],
     ],
     'components' => [
         'authManager' => [

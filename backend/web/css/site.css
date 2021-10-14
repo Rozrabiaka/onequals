@@ -12,7 +12,9 @@ main > .container {
     padding-right: 15px;
     padding-left: 15px;
 }
-
+.fixed-top{
+    position: unset !important;
+}
 .not-set {
     color: #c55;
     font-style: italic;

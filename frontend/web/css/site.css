@@ -794,6 +794,7 @@ a.desc:after {
 }
 .footer-pp{
     margin-top:30px;
+    display: flex;
 }
 .links{
     text-align: center;
