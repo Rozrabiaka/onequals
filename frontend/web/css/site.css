@@ -1568,6 +1568,39 @@ a.desc:after {
     .header-logo a img {
         width: 300px;
     }
+
+    .blog-summary-pic{
+        top:150px;
+        max-width: 350px;
+    }
+
+    .blog-employer-pic{
+        top:150px;
+        max-width: 300px;
+    }
+
+    .blog-legislation-pic{
+        top:150px;
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 780px){
+    .header-logo a img{
+        width:300px;
+    }
+
+    .blog-summary-pic{
+        display: none;
+    }
+
+    .blog-employer-pic{
+        display: none;
+    }
+
+    .blog-legislation-pic{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 810px) {
