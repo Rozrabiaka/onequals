@@ -76,9 +76,9 @@ AppAsset::register($this);
                     <div class="col-sm-6 mobile-menu-blocks">
                         <p class="size-mobile-header">Журнал</p>
                         <ul>
-                            <li><a href="/site/about">Шукачам</a></li>
-                            <li><a href="/site/about">Роботодавцям</a></li>
-                            <li><a href="/site/about">Законодавство</a></li>
+                            <li><a href="/blog/summary">Шукачам</a></li>
+                            <li><a href="/blog/employer">Роботодавцям</a></li>
+                            <li><a href="/blog/legislation">Законодавство</a></li>
                             <?php if (!empty(Yii::$app->user->identity)): ?>
                                 <li><?php
                                     echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])

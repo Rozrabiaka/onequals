@@ -2,7 +2,7 @@
 
 namespace backend\modules\blogemployer\controllers;
 
-use common\models\BlogEmployer;
+use common\models\Blog;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -49,17 +49,10 @@ class BlogemployerController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => BlogEmployer::find(),
-            /*
+            'query' => Blog::find()->where(['blog_category' => Blog::BLOG_CATEGORY_EMPLOYER]),
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => 20
             ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
         ]);
 
         return $this->render('index', [
@@ -98,12 +91,12 @@ class BlogemployerController extends Controller
      * Finds the BlogEmployer model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return BlogEmployer the loaded model
+     * @return Blog the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = BlogEmployer::findOne($id)) !== null) {
+        if (($model = Blog::findOne($id)) !== null) {
             return $model;
         }
 

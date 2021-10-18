@@ -57,6 +57,9 @@ return [
         'history' => [
             'class' => 'backend\modules\history\Module',
         ],
+        'blog' => [
+            'class' => 'backend\modules\blog\Module',
+        ],
     ],
     'components' => [
         'authManager' => [

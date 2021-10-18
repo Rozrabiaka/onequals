@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'username',
-            'auth_key',
+           // 'auth_key',
             'email:email',
             [
                 'attribute' => 'status',

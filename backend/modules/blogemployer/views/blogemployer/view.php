@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\BlogEmployer */
+/* @var $model common\models\Blog */
 
 $this->title = $model->page_name;
 $this->params['breadcrumbs'][] = ['label' => 'Blog Employers', 'url' => ['index']];
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($model->page_name) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['/page/page/update', 'id' => $model->id, 'category'=> \backend\models\CreateBlog::BLOG_CATEGORY_EMPLOYER], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['/page/page/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'second_blog_category',
                 'value' => function ($model) {
-                    if (\backend\models\CreateBlog::SECOND_BLOG_CATEGORY_ADVICES == $model->second_blog_category)
+                    if ($model::SECOND_BLOG_CATEGORY_ADVICES == $model->second_blog_category)
                         return 'Поради';
                     else return 'Доступність';
 

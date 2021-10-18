@@ -2,10 +2,7 @@
 
 namespace backend\modules\page\controllers;
 
-use backend\models\CreateBlog;
-use common\models\BlogEmployer;
-use common\models\BlogLegislation;
-use common\models\BlogSummary;
+use common\models\Blog;
 use yii\web\Controller;
 use Yii;
 
@@ -20,22 +17,11 @@ class PageController extends Controller
      */
     public function actionIndex()
     {
-        $createBlog = new CreateBlog();
+        $model = new Blog();
 
         if (!empty(Yii::$app->request->post())) {
-            $blogCategory = Yii::$app->request->post('CreateBlog')['blog_category'];
-
-            $blogModel = $this->getBlogModel($blogCategory);
-            $model = $blogModel['model'];
-            $view = $blogModel['view'];
-
-            $model->description = Yii::$app->request->post('CreateBlog')['description'];
-            $model->author_name = Yii::$app->request->post('CreateBlog')['author_name'];
-            $model->page_name = Yii::$app->request->post('CreateBlog')['page_name'];
-            $model->blog_category = Yii::$app->request->post('CreateBlog')['blog_category'];
-            $model->second_blog_category = Yii::$app->request->post('CreateBlog')['second_blog_category'];
-
-            if ($model->save()) {
+            if ($model->load(Yii::$app->request->post()) and $model->save()) {
+                $view = $this->viewRedirect($model->blog_category);
                 $this->redirect('/admin' . $view . '?id=' . $model->getPrimaryKey());
             } else {
                 Yii::$app->session->setFlash('error', "Помилка при створені сторінки. Будь ласка спробуйте знову.");
@@ -43,84 +29,47 @@ class PageController extends Controller
         }
 
         return $this->render('index', [
-            'model' => $createBlog
+            'model' => $model
         ]);
     }
 
-    public function actionUpdate($id, $category)
+    public function actionUpdate($id)
     {
-        $blogModel = $this->getBlogModel($category);
-        $model = $blogModel['model'];
-        $view = $blogModel['view'];
+        $model = Blog::find()->where(['id' => $id])->one();
 
-        $createBlogModel = new CreateBlog();
-        $updateModel = $model::find()->where(['id' => $id])->one();
-
-        $updateModel->blog_category = $category;
         if (!empty(Yii::$app->request->post())) {
-            $modelName = $this->getModelClass($updateModel::className());
-
-            //Если меняют категорию удаляем старое добавляем в новую категорию
-            if (Yii::$app->request->post($modelName)['blog_category'] !== $category) {
-                $model::findOne($id)->delete();
-
-                $newBlogModel = $this->getBlogModel(Yii::$app->request->post($modelName)['blog_category']);
-                $view = $newBlogModel['view'];
-                $newModel = $newBlogModel['model'];
-
-                $newModel->description = Yii::$app->request->post($modelName)['description'];
-                $newModel->author_name = Yii::$app->request->post($modelName)['author_name'];
-                $newModel->page_name = Yii::$app->request->post($modelName)['page_name'];
-                $newModel->second_blog_category = Yii::$app->request->post($modelName)['second_blog_category'];
-
-                if ($newModel->save()) {
-                    $this->redirect('/admin' . $view . '?id=' . $newModel->getPrimaryKey());
-                } else {
-                    Yii::$app->session->setFlash('error', "Помилка при оновлені блогу. Будь ласка спробуйте знову.");
-                }
+            if ($model->load(Yii::$app->request->post()) and $model->save()) {
+                $view = $this->viewRedirect($model->blog_category);
+                $this->redirect('/admin' . $view . '?id=' . $id);
             } else {
-                //обновляем существующую
-                $updateModel->load(Yii::$app->request->post());
-                if ($updateModel->save()) {
-                    $this->redirect('/admin' . $view . '?id=' . $id);
-                } else {
-                    Yii::$app->session->setFlash('error', "Помилка при оновлені блогу. Будь ласка спробуйте знову.");
-                }
+                Yii::$app->session->setFlash('error', "Помилка при оновлені блогу. Будь ласка спробуйте знову.");
             }
         }
 
-        return $this->render('update', [
-            'createBlogModel' => $createBlogModel,
-            'model' => $updateModel
-        ]);
+        if (!empty($model)) {
+            return $this->render('update', [
+                'model' => $model
+            ]);
+        }
+
+        return $this->redirect('/admin/error');
     }
 
-    protected function getBlogModel($id)
+    protected function viewRedirect($category)
     {
-        switch ($id) {
-            case CreateBlog::BLOG_CATEGORY_SUMMARY:
-                $model = new BlogSummary();
-                $view = '/blogsummary/blogsummary/view';
-                break;
-            case CreateBlog::BLOG_CATEGORY_EMPLOYER:
-                $model = new BlogEmployer();
+        $view = null;
+        switch ($category) {
+            case Blog::BLOG_CATEGORY_EMPLOYER:
                 $view = '/blogemployer/blogemployer/view';
                 break;
-            case CreateBlog::BLOG_CATEGORY_LEGISLATION:
-                $model = new BlogLegislation();
-                $view = '/bloglegislation/bloglegislation/view';
+            case Blog::BLOG_CATEGORY_SUMMARY:
+                $view = 'blogsummary/blogsummary/view';
+                break;
+            case Blog::BLOG_CATEGORY_LEGISLATION:
+                $view = 'bloglegislation/bloglegislation/view';
                 break;
         }
 
-        return array(
-            'model' => $model,
-            'view' => $view
-        );
-    }
-
-    protected function getModelClass($className)
-    {
-        $explode = explode("\\", $className);
-        return end($explode);
+        return $view;
     }
 }

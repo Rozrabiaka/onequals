@@ -2,7 +2,7 @@
 
 namespace backend\modules\bloglegislation\controllers;
 
-use common\models\BlogLegislation;
+use common\models\Blog;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -50,17 +50,10 @@ class BloglegislationController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => BlogLegislation::find(),
-            /*
+            'query' => Blog::find()->where(['blog_category' => Blog::BLOG_CATEGORY_LEGISLATION]),
             'pagination' => [
                 'pageSize' => 50
             ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
         ]);
 
         return $this->render('index', [
@@ -99,12 +92,12 @@ class BloglegislationController extends Controller
      * Finds the BlogLegislation model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return BlogLegislation the loaded model
+     * @return Blog the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = BlogLegislation::findOne($id)) !== null) {
+        if (($model = Blog::findOne($id)) !== null) {
             return $model;
         }
 

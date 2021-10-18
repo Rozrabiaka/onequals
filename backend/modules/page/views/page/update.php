@@ -20,10 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'author_name')->textInput(['maxlength' => true, 'placeholder' => 'Олег Глазков']) ?>
         </div>
         <div class="col-xl-12">
-            <?= $form->field($model, 'blog_category')->dropDownList($createBlogModel->getBlogCategory()) ?>
+            <?= $form->field($model, 'blog_category')->dropDownList($model->getBlogCategory()) ?>
         </div>
         <div class="col-xl-12">
-            <?= $form->field($model, 'second_blog_category')->dropDownList($createBlogModel->getSecondBlogCategory()) ?>
+            <?= $form->field($model, 'second_blog_category')->dropDownList($model->getSecondBlogCategory()) ?>
         </div>
         <div class="col-xl-12">
             <?= $form->field($model, 'description')->widget(CKEditor::className(), [

@@ -2,7 +2,7 @@
 
 namespace backend\modules\blogsummary\controllers;
 
-use common\models\BlogSummary;
+use common\models\Blog;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -50,7 +50,7 @@ class BlogsummaryController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => BlogSummary::find(),
+            'query' => Blog::find()->where(['blog_category' => Blog::BLOG_CATEGORY_SUMMARY]),
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -99,12 +99,12 @@ class BlogsummaryController extends Controller
      * Finds the BlogSummary model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return BlogSummary the loaded model
+     * @return Blog the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = BlogSummary::findOne($id)) !== null) {
+        if (($model = Blog::findOne($id)) !== null) {
             return $model;
         }
 
