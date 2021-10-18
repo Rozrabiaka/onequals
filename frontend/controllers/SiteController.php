@@ -195,7 +195,11 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            return $this->render('signupSuccess');
+            return $this->render('siteResultPage', [
+                'message' => ' Вам на пошту надійшов лист з підтвердженням.
+                               Будь ласка, перейдіть на пошту для продовження реєстрації.',
+                'title' => 'Успішна реєстрація'
+            ]);
         }
 
         return $this->render('signup', [
@@ -223,9 +227,10 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
+                return $this->render('siteResultPage', [
+                    'message' => 'Вам на пошту надійшов лист з підтвердженням.
+                    Будь ласка, перейдіть на пошту для подальших інструкцій.'
+                ]);
             }
 
             Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');

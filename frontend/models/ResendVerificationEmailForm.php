@@ -31,6 +31,13 @@ class ResendVerificationEmailForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return array(
+            'email' => 'Пошта'
+        );
+    }
+
     /**
      * Sends confirmation email to user
      *

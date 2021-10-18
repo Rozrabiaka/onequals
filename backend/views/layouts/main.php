@@ -53,6 +53,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Блог роботодавця', 'url' => ['/blogemployer/blogemployer']];
         $menuItems[] = ['label' => 'Блог законодавства', 'url' => ['/bloglegislation/bloglegislation']];
         $menuItems[] = ['label' => 'Історії', 'url' => ['/history/history']];
+        $menuItems[] = ['label' => 'Блог карєра / резюме', 'url' => ['/blogcareer/blogcareer']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(

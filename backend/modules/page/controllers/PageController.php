@@ -68,6 +68,9 @@ class PageController extends Controller
             case Blog::BLOG_CATEGORY_LEGISLATION:
                 $view = 'bloglegislation/bloglegislation/view';
                 break;
+            case Blog::BLOG_CATEGORY_CAREER:
+                $view = 'blogcareer/blogcareer/view';
+                break;
         }
 
         return $view;

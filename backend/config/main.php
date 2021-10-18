@@ -60,6 +60,9 @@ return [
         'blog' => [
             'class' => 'backend\modules\blog\Module',
         ],
+        'blogcareer' => [
+            'class' => 'backend\modules\blogcareer\Module',
+        ],
     ],
     'components' => [
         'authManager' => [

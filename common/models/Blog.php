@@ -22,9 +22,11 @@ class Blog extends \yii\db\ActiveRecord
     const BLOG_CATEGORY_SUMMARY = 0;
     const BLOG_CATEGORY_EMPLOYER = 1;
     const BLOG_CATEGORY_LEGISLATION = 2;
+    const BLOG_CATEGORY_CAREER = 3;
 
     const SECOND_BLOG_CATEGORY_ADVICES = 0;
     const SECOND_BLOG_CATEGORY_ACCESSIBILITY = 1;
+    const SECOND_BLOG_UNDEFINED = 2;
 
     /**
      * {@inheritdoc}
@@ -66,7 +68,8 @@ class Blog extends \yii\db\ActiveRecord
         return array(
             self::BLOG_CATEGORY_SUMMARY => 'Шукачам',
             self::BLOG_CATEGORY_EMPLOYER => 'Роботодавцям',
-            self::BLOG_CATEGORY_LEGISLATION => 'Законодавство'
+            self::BLOG_CATEGORY_LEGISLATION => 'Законодавство',
+            self::BLOG_CATEGORY_CAREER => 'Кар’єра / Резюме'
         );
     }
 
@@ -74,7 +77,8 @@ class Blog extends \yii\db\ActiveRecord
     {
         return array(
             self::SECOND_BLOG_CATEGORY_ADVICES => 'Поради',
-            self::SECOND_BLOG_CATEGORY_ACCESSIBILITY => 'Доступність'
+            self::SECOND_BLOG_CATEGORY_ACCESSIBILITY => 'Доступність',
+            self::SECOND_BLOG_UNDEFINED => 'Невизначено',
         );
     }
 
@@ -119,6 +123,9 @@ class Blog extends \yii\db\ActiveRecord
                 break;
             case self::BLOG_CATEGORY_LEGISLATION:
                 $categoryName = 'Законодавство';
+                break;
+            case self::BLOG_CATEGORY_CAREER:
+                $categoryName = 'Кар’єра / Резюме';
                 break;
         }
 
