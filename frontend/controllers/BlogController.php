@@ -37,8 +37,8 @@ class BlogController extends Controller
     {
         $modelHistory = History::find()->orderBy(['id' => SORT_DESC])->limit(10)->all();
 
-        $dataProviderSummaryAdvices = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ADVICES, Blog::BLOG_CATEGORY_SUMMARY);
-        $dataProviderSummaryAccessibility = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ACCESSIBILITY, Blog::BLOG_CATEGORY_SUMMARY);
+        $dataProviderSummaryAdvices = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ADVICES, Blog::BLOG_CATEGORY_SUMMARY, 'page-blog-summary-advices');
+        $dataProviderSummaryAccessibility = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ACCESSIBILITY, Blog::BLOG_CATEGORY_SUMMARY, 'page-blog-summary-accessibility');
 
         \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/slider/swiper.min.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
         \Yii::$app->getView()->registerJsFile(Yii::$app->request->baseUrl . '/js/slider/slider.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
@@ -53,8 +53,8 @@ class BlogController extends Controller
 
     public function actionEmployer()
     {
-        $dataProviderSummaryAdvices = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ADVICES, Blog::BLOG_CATEGORY_EMPLOYER);
-        $dataProviderSummaryAccessibility = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ACCESSIBILITY, Blog::BLOG_CATEGORY_SUMMARY);
+        $dataProviderSummaryAdvices = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ADVICES, Blog::BLOG_CATEGORY_EMPLOYER, 'page-blog-employer-advices');
+        $dataProviderSummaryAccessibility = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ACCESSIBILITY, Blog::BLOG_CATEGORY_SUMMARY, 'page-blog-employer-accessibility');
 
         return $this->render('employer', array(
             'dataProviderSummaryAdvices' => $dataProviderSummaryAdvices,
@@ -64,8 +64,8 @@ class BlogController extends Controller
 
     public function actionLegislation()
     {
-        $dataProviderSummaryAdvices = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ADVICES, Blog::BLOG_CATEGORY_LEGISLATION);
-        $dataProviderSummaryAccessibility = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ACCESSIBILITY, Blog::BLOG_CATEGORY_LEGISLATION);
+        $dataProviderSummaryAdvices = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ADVICES, Blog::BLOG_CATEGORY_LEGISLATION, 'page-blog-legislation-advices');
+        $dataProviderSummaryAccessibility = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ACCESSIBILITY, Blog::BLOG_CATEGORY_LEGISLATION, 'page-blog-legislation-accessibility');
 
         return $this->render('legislation', array(
             'dataProviderSummaryAdvices' => $dataProviderSummaryAdvices,
@@ -94,13 +94,13 @@ class BlogController extends Controller
         return $this->redirect('/site/error');
     }
 
-    public function findDataProvider($secondBlogCategory, $blogCategory)
+    public function findDataProvider($secondBlogCategory, $blogCategory, $pageParam = 'page-pagination', $pageSize = 6)
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Blog::find()->where(['second_blog_category' => $secondBlogCategory])->andWhere(['blog_category' => $blogCategory]),
             'pagination' => [
-                'pageParam' => 'page-accessibility',
-                'pageSize' => 6
+                'pageParam' => $pageParam,
+                'pageSize' => $pageSize
             ]
         ]);
 
