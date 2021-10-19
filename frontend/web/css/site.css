@@ -1376,6 +1376,15 @@ a.desc:after {
     display: none;
 }
 
+.request-page-header{
+    margin-top: 40px;
+}
+
+.result-page-error{
+    color: red;
+    font-size: 54px;
+}
+
 /* MEDIA */
 
 @media screen and (max-width: 1440px) {

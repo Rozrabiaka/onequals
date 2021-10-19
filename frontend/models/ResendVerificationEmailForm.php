@@ -21,12 +21,12 @@ class ResendVerificationEmailForm extends Model
     {
         return [
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
+            ['email', 'required', 'message' => 'Заповніть будь ласка поле.'],
+            ['email', 'email', 'message' => 'Емейл некоректний будь ласка перевірте правильність написання.'],
             ['email', 'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_INACTIVE],
-                'message' => 'There is no user with this email address.'
+                'message' => 'Немає користувача з таким емейлом.'
             ],
         ];
     }
@@ -62,7 +62,7 @@ class ResendVerificationEmailForm extends Model
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
             ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->setSubject('Реєстрація ' . Yii::$app->name)
             ->send();
     }
 }

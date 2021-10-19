@@ -7,7 +7,7 @@ $this->title = 'OnEquals - ' . $title;
         <div class="col-lg-12 signup-success-info">
             <img src="/images/lightnings.png">
             <?php if (!empty($error)): ?>
-                <h3>Помилка</h3>
+                <h3 class="result-page-error"><?php echo $error ?></h3>
             <?php else: ?>
                 <p><?php echo $message; ?></p>
             <?php endif; ?>

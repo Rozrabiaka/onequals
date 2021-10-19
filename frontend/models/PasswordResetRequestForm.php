@@ -20,15 +20,22 @@ class PasswordResetRequestForm extends Model
     public function rules()
     {
         return [
-            ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
+            ['email', 'trim', ],
+            ['email', 'required', 'message' => 'Заповніть будь ласка поле.'],
+            ['email', 'email', 'message' => 'Емейл некоректний будь ласка перевірте правильність написання.'],
             ['email', 'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with this email address.'
+                'message' => 'Немає користувача з таким емейлом.'
             ],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        return array(
+            'email' => 'Пошта'
+        );
     }
 
     /**

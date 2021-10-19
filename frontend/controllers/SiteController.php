@@ -228,12 +228,16 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 return $this->render('siteResultPage', [
-                    'message' => 'Вам на пошту надійшов лист з підтвердженням.
+                    'title' => 'Успішно!',
+                    'error' => 'Вам на пошту надійшов лист з підтвердженням.
                     Будь ласка, перейдіть на пошту для подальших інструкцій.'
                 ]);
             }
 
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+            return $this->render('siteResultPage', [
+                'title' => 'Помилка',
+                'error' => 'Сталась помилка, будь ласка, зверніться в технічну підтримку.'
+            ]);
         }
 
         return $this->render('requestPasswordResetToken', [
