@@ -4,7 +4,6 @@ namespace backend\modules\employerusers\controllers;
 
 use backend\models\EmployerSearch;
 use common\models\EmployerUsers;
-use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
