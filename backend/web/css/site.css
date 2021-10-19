@@ -90,3 +90,35 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.ui-autocomplete {
+    border-right: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid rgb(0, 0, 0);
+    border-left: 2px solid rgb(0, 0, 0);
+    border-image: initial;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px 0px 5px 5px;
+    list-style: none;
+    padding: 0px;
+    border-top: none;
+    z-index: 99999999;
+    margin-left: 15px;
+    position: absolute !important;
+    margin-right: 15px;
+    width: auto !important;
+}
+
+.ui-autocomplete li {
+    padding-top: 4px;
+}
+
+.ui-autocomplete li:hover {
+    background-color: #fed849;
+    border-radius: 4.3vw;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+.ui-helper-hidden-accessible{
+    display:none !important;
+}

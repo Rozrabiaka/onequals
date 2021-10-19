@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Employment Types';
+$this->title = 'OnEquals - Тип зайнятості';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="employment-type-index">

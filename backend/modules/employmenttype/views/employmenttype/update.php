@@ -3,9 +3,9 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\EmploymentType */
+/* @var $model common\models\EmploymentType */
 
-$this->title = 'Update Employment Type: ' . $model->name;
+$this->title = 'OnEquals -  Оновити тип зайнятості: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Employment Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

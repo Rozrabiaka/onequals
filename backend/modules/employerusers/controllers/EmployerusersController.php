@@ -2,6 +2,7 @@
 
 namespace backend\modules\employerusers\controllers;
 
+use backend\models\EmployerSearch;
 use common\models\EmployerUsers;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -48,22 +49,12 @@ class EmployerusersController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => EmployerUsers::find(),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
-        ]);
+        $model = new EmployerSearch();
+        $dataProvider = $model->search(\Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $model,
         ]);
     }
 
@@ -80,27 +71,27 @@ class EmployerusersController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new EmployerUsers model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new EmployerUsers();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+//    /**
+//     * Creates a new EmployerUsers model.
+//     * If creation is successful, the browser will be redirected to the 'view' page.
+//     * @return mixed
+//     */
+//    public function actionCreate()
+//    {
+//        $model = new EmployerUsers();
+//
+//        if ($this->request->isPost) {
+//            if ($model->load($this->request->post()) && $model->save()) {
+//                return $this->redirect(['view', 'id' => $model->id]);
+//            }
+//        } else {
+//            $model->loadDefaultValues();
+//        }
+//
+//        return $this->render('create', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Updates an existing EmployerUsers model.

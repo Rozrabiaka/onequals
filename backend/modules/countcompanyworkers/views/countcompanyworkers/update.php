@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\CountCompanyWorkers */
 
-$this->title = 'Update Count Company Workers: ' . $model->id;
+$this->title = 'OnEquals - ' . $model->count_company_workers;
 $this->params['breadcrumbs'][] = ['label' => 'Count Company Workers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

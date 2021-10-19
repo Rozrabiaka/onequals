@@ -2,9 +2,13 @@
 
 namespace backend\modules\vacancies\controllers;
 
+use backend\models\VacanciesFilter;
+use common\models\EmploymentType;
+use common\models\Locality;
+use common\models\Specializations;
 use common\models\Vacancies;
-use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -48,22 +52,12 @@ class VacanciesController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Vacancies::find(),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
-        ]);
+        $model = new VacanciesFilter();
+        $dataProvider = $model->search(\Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $model,
         ]);
     }
 
@@ -80,27 +74,27 @@ class VacanciesController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Vacancies model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Vacancies();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+//    /**
+//     * Creates a new Vacancies model.
+//     * If creation is successful, the browser will be redirected to the 'view' page.
+//     * @return mixed
+//     */
+//    public function actionCreate()
+//    {
+//        $model = new Vacancies();
+//
+//        if ($this->request->isPost) {
+//            if ($model->load($this->request->post()) && $model->save()) {
+//                return $this->redirect(['view', 'id' => $model->id]);
+//            }
+//        } else {
+//            $model->loadDefaultValues();
+//        }
+//
+//        return $this->render('create', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Updates an existing Vacancies model.
@@ -113,12 +107,32 @@ class VacanciesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            $model->load($this->request->post());
+            $model->country = $this->request->post('Vacancies')['hiddenCountry'];
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        $specializations = Specializations::find()->asArray()->all();
+        $employerType = EmploymentType::find()->asArray()->all();
+        $locality = new Locality();
+        $countryName = $locality->getLocalityNameById($model->country);
+
+        $specializationDropDownArray = ArrayHelper::map($specializations, 'id', 'name');
+        $employmentTypeDropDownArray = ArrayHelper::map($employerType, 'id', 'name');
+
+        \Yii::$app->getView()->registerJsFile(\Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-ui.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(\Yii::$app->request->baseUrl . '/js/autocomplete/autocomplete-0.3.0.min.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
+        \Yii::$app->getView()->registerJsFile(\Yii::$app->request->baseUrl . '/js/autocomplete/searchLocation.js', ['position' => \yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::className()]]);
 
         return $this->render('update', [
             'model' => $model,
+            'specializationDropDownArray' => $specializationDropDownArray,
+            'employmentTypeDropDownArray' => $employmentTypeDropDownArray,
+            'countryName' => $countryName
         ]);
     }
 

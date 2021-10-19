@@ -64,7 +64,6 @@ class Locality extends \yii\db\ActiveRecord
             ->asArray()
             ->all();
 
-
         $i = 0;
         foreach ($country[0] as $locality) {
             if ($i == 0) $countryName = $locality;

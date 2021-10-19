@@ -4,9 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Vacancies */
+/* @var $model common\models\Vacancies */
 
-$this->title = $model->id;
+$this->title = 'OnEquals - Вакансія ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Vacancies', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -30,12 +30,44 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'employer_id',
-            'specialization',
-            'country',
+            [
+                'attribute' => 'employer_id',
+                'value' => function ($model) {
+                    return $model->employer->company_name;
+                },
+            ],
+            [
+                'attribute' => 'specialization',
+                'value' => function ($model) {
+                    return $model->specializations->name;
+                },
+            ],
+            [
+                'attribute' => 'country',
+                'value' => function ($model) {
+                    return $model->countryName->title . ' ' . $model->countryName->type;
+                },
+            ],
             'wage',
             'description:ntext',
-            'employer_type',
+            [
+                'attribute' => 'employer_id',
+                'value' => function ($model) {
+                    return $model->employer->company_name;
+                },
+            ],
+            [
+                'attribute' => 'specialization',
+                'value' => function ($model) {
+                    return $model->specializations->name;
+                },
+            ],
+            [
+                'attribute' => 'employer_type',
+                'value' => function ($model) {
+                    return $model->employerType->name;
+                },
+            ],
         ],
     ]) ?>
 

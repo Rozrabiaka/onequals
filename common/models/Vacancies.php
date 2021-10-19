@@ -21,6 +21,7 @@ class Vacancies extends \yii\db\ActiveRecord
 {
 
     public $hiddenCountry;
+
     /**
      * {@inheritdoc}
      */
@@ -51,7 +52,7 @@ class Vacancies extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'employer_id' => 'Employer ID',
+            'employer_id' => 'Employer',
             'specialization' => 'Specialization',
             'country' => 'Country',
             'wage' => 'За зарплатою',
@@ -82,6 +83,11 @@ class Vacancies extends \yii\db\ActiveRecord
     }
 
     public function getCountry()
+    {
+        return $this->hasOne(Locality::className(), ['id' => 'country']);
+    }
+
+    public function getCountryName()
     {
         return $this->hasOne(Locality::className(), ['id' => 'country']);
     }

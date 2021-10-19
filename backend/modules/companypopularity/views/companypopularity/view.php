@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\CompanyPopularity */
 
-$this->title = $model->id;
+$this->title = 'OnEquals - Компанія: ' . $model->company_popularity;
 $this->params['breadcrumbs'][] = ['label' => 'Company Popularities', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

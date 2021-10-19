@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\CountCompanyWorkers */
 
-$this->title = $model->id;
+$this->title = 'OnEquals - ' . $model->count_company_workers;
 $this->params['breadcrumbs'][] = ['label' => 'Count Company Workers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

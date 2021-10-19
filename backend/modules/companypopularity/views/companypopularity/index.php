@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Company Popularities';
+$this->title = 'OnEquals - Популярність компанії';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="company-popularity-index">
@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'company_popularity',
 
             ['class' => 'yii\grid\ActionColumn'],

@@ -65,7 +65,6 @@ class EmployerUsers extends \yii\db\ActiveRecord
             [['company_popularity'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyPopularity::className(), 'targetAttribute' => ['company_popularity' => 'id']],
             [['count_company_workers'], 'exist', 'skipOnError' => true, 'targetClass' => CountCompanyWorkers::className(), 'targetAttribute' => ['count_company_workers' => 'id']],
             [['specialization'], 'exist', 'skipOnError' => true, 'targetClass' => Specializations::className(), 'targetAttribute' => ['specialization' => 'id']],
-            [['specialization'], 'exist', 'skipOnError' => true, 'targetClass' => Specializations::className(), 'targetAttribute' => ['specialization' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -128,17 +127,7 @@ class EmployerUsers extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getSpecialization0()
-    {
-        return $this->hasOne(Specializations::className(), ['id' => 'specialization']);
-    }
-
-    /**
-     * Gets query for [[Specialization1]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSpecialization1()
+    public function getSpecializations()
     {
         return $this->hasOne(Specializations::className(), ['id' => 'specialization']);
     }

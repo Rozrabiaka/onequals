@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Age Companies';
+$this->title = 'OnEquals - Роки компанії';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="age-company-index">
@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'age_name',
 
             ['class' => 'yii\grid\ActionColumn'],

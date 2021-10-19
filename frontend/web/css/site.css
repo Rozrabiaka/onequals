@@ -371,6 +371,10 @@ a.desc:after {
     height: auto;
 }
 
+.ui-helper-hidden-accessible{
+    display:none !important;
+}
+
 .home-search-img-lightning-1 {
     position: absolute;
     top: calc(360px + 5vw);

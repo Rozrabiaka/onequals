@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\AgeCompany */
 
-$this->title = $model->id;
+$this->title = 'OnEquals - ' . $model->age_name;
 $this->params['breadcrumbs'][] = ['label' => 'Age Companies', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

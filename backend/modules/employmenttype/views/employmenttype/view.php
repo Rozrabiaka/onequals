@@ -4,9 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\EmploymentType */
+/* @var $model common\models\EmploymentType */
 
-$this->title = $model->name;
+$this->title = 'OnEquals - Тип зайнятості ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Employment Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Count Company Workers';
+$this->title = 'OnEquals - Кількість працівників компанії';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="count-company-workers-index">
@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'count_company_workers',
 
             ['class' => 'yii\grid\ActionColumn'],
