@@ -111,8 +111,9 @@ class User extends \yii\db\ActiveRecord
 
     public function getUserAdminStatus($id)
     {
-        $role = array_keys(Yii::$app->authManager->getRolesByUser($id))[0];
-        if (!empty($role)) {
+        $keys = array_keys(Yii::$app->authManager->getRolesByUser($id));
+        if (!empty($keys)) {
+        	$role = $keys[0];
             if ($role == self::ROLE_MODERATOR) {
                 return 'Модератор';
             } elseif ($role == self::ROLE_BLOGER) {
