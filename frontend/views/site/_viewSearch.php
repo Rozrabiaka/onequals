@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <div class="vacancies-info search-vacancies-info">
     <div class="vac-info-block">
         <div class="row">
@@ -10,7 +6,7 @@
                     <h3 class="vac-info-search-h3"><?php echo $model->relatedRecords['employer']->company_name ?></h3>
                 <?php else: ?>
                     <h3 class="vac-info-search-h3"><?php echo $model->relatedRecords['worker']->lastname . ' ' . $model->relatedRecords['worker']->firstname ?></h3>
-                <? endif; ?>
+                <?php endif; ?>
 
                 <p class="spec_name"><?php echo $model->relatedRecords['specializations']->name ?></p>
                 <p class="emp_name"><?php echo $model->relatedRecords['employerType']->name ?></p>
