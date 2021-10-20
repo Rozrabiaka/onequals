@@ -1024,7 +1024,6 @@ class SiteController extends Controller
 				->asArray()
 				->all();
 
-			$likeModelArray = array();
 			$likeModel = new LikeVacancies();
 			$likeModelArray = $likeModel->getLikeVacanciesArrayByLoginUserId();
 

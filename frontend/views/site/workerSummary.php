@@ -3,7 +3,7 @@
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
-$this->title = 'OnEquals - Редагувати резюме';
+$this->title = 'OnEquals - Створити резюме';
 ?>
 
 <div class="site-edit-employer-vacation">
@@ -24,7 +24,7 @@ $this->title = 'OnEquals - Редагувати резюме';
                 </div>
 
                 <div class="col-xl-12 search-input">
-                    <?= $form->field($model, 'country')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'form-control search-location', 'value' => $countryName])->label('3. Ваше розташування') ?>
+                    <?= $form->field($model, 'country')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'form-control search-location', 'value' => ''])->label('3. Ваше розташування') ?>
                 </div>
 
                 <?= $form->field($model, 'hiddenCountry')->hiddenInput(['class' => 'country-js-hidden-id', 'value'=> $model->country])->label(false) ?>

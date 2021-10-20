@@ -52,10 +52,10 @@ class SearchWorkUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstname', 'lastname', 'patronymic', 'specialization', 'country', 'description'], 'required'],
+            [['firstname', 'lastname', 'patronymic', 'specialization', 'description'], 'required'],
             [['specialization', 'user_id'], 'integer'],
             [['description', 'img'], 'string'],
-            ['country', 'exist'],
+            ['country', 'safe'],
             [['firstname', 'lastname', 'patronymic', 'facebook', 'instagram', 'twitter', 'LinkedIn', 'webpage'], 'string', 'max' => 255],
             [['specialization'], 'exist', 'skipOnError' => true, 'targetClass' => Specializations::className(), 'targetAttribute' => ['specialization' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],

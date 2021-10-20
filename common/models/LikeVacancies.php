@@ -72,8 +72,12 @@ class LikeVacancies extends \yii\db\ActiveRecord
 
     public function getLikeVacanciesArrayByLoginUserId()
     {
-        $likeModel = self::find()->select(['id', 'vacancies_id'])->where(['user_id' => Yii::$app->user->identity->id])->asArray()->all();
-        $likeModelArray = ArrayHelper::map($likeModel, 'id', 'vacancies_id');
+    	$likeModelArray = array();
+
+    	if(!empty( Yii::$app->user->identity->id)){
+			$likeModel = self::find()->select(['id', 'vacancies_id'])->where(['user_id' => Yii::$app->user->identity->id])->asArray()->all();
+			$likeModelArray = ArrayHelper::map($likeModel, 'id', 'vacancies_id');
+		}
 
         return $likeModelArray;
     }
