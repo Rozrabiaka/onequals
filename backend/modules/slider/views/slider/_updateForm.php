@@ -1,5 +1,6 @@
 <?php
 
+use dosamigos\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
@@ -29,7 +30,13 @@ use yii\helpers\Url;
         'options' => ['accept' => 'image/*'],
     ]); ?>
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'text')->widget(CKEditor::className(), [
+		'options' => ['rows' => 6],
+		'preset' => 'custom',
+		'clientOptions' => [
+			'toolbar' => false
+		]
+	]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
