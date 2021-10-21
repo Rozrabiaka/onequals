@@ -130,18 +130,19 @@ class UserController extends Controller
 	{
 		$model = $this->findModel($id);
 
+		//TODO удалить все лайки даннных employers или summary
 		if ($model->which_user == 1) {
 			$employer = EmployerUsers::findOne(['user_id' => $id]);
 			if (!empty($employer)) {
+				LikeVacancies::deleteAll(['user_id' => $id]);
 				Vacancies::deleteAll(['employer_id' => $employer->id]);
-				LikeSummary::deleteAll(['user_id' => $id]);
 				$employer->delete();
 			}
 		} else if ($model->which_user == 2) {
 			$worker = SearchWorkUser::findOne(['user_id' => $id]);
 			if (!empty($worker)) {
+				LikeSummary::deleteAll(['user_id' => $id]);
 				Summary::deleteAll(['worker_id' => $worker->id]);
-				LikeVacancies::deleteAll(['user_id' => $id]);
 				$worker->delete();
 			}
 		}

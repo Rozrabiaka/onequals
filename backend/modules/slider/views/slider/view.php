@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => ($model->img_path),
                 'format' => ['image', ['width' => '230', 'height' => '200']],
             ],
-            'text:ntext',
+            'text:html',
         ],
     ]) ?>
 

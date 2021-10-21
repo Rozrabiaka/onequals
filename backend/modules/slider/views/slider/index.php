@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => ['image', ['width' => '230', 'height' => '200']],
             ],
-            'text:ntext',
+            'text:html',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
