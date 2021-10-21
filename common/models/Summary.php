@@ -85,7 +85,7 @@ class Summary extends \yii\db\ActiveRecord
         return $this->hasOne(Specializations::className(), ['id' => 'specialization']);
     }
 
-    public function getCountry()
+    public function getLocality()
     {
         return $this->hasOne(Locality::className(), ['id' => 'country']);
     }

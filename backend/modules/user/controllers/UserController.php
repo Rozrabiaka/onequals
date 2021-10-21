@@ -3,6 +3,7 @@
 namespace backend\modules\user\controllers;
 
 use backend\models\User;
+use backend\models\UserFilter;
 use common\models\EmployerUsers;
 use common\models\LikeSummary;
 use common\models\LikeVacancies;
@@ -55,22 +56,11 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new ActiveDataProvider([
-			'query' => User::find(),
-			/*
-			'pagination' => [
-				'pageSize' => 50
-			],
-			'sort' => [
-				'defaultOrder' => [
-					'id' => SORT_DESC,
-				]
-			],
-			*/
-		]);
-
+		$searchModel = new UserFilter();
+		$dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 		return $this->render('index', [
 			'dataProvider' => $dataProvider,
+			'searchModel' => $searchModel
 		]);
 	}
 

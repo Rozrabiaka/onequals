@@ -13,14 +13,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1>Список користувачів для модулю RBAC</h1>
 
+	<?= Html::a('Очистити фільтри', ['index'], ['class' => 'btn btn-info']) ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'username',
-           // 'auth_key',
             'email:email',
             [
                 'attribute' => 'status',
