@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\EmployerUsers */
 
-$this->title = $model->id;
+$this->title = $model->company_name;
 $this->params['breadcrumbs'][] = ['label' => 'Employer Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -32,18 +32,42 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'user_id',
             'company_name',
-            'email:email',
-            'specialization',
+			[
+				'attribute' => 'specialization',
+				'value' => function ($model) {
+					return $model->specializations->name;
+				}
+			],
             'webpage',
             'facebook',
             'instagram',
             'twitter',
             'LinkedIn',
-            'age_company',
-            'count_company_workers',
-            'company_popularity',
-            'company_description:ntext',
-            'country',
+			[
+				'attribute' => 'age_company',
+				'value' => function ($model) {
+					return $model->ageCompany->age_name;
+				}
+			],
+			[
+				'attribute' => 'count_company_workers',
+				'value' => function ($model) {
+					return $model->countCompanyWorkers->count_company_workers;
+				}
+			],
+			[
+				'attribute' => 'company_popularity',
+				'value' => function ($model) {
+					return $model->companyPopularity->company_popularity;
+				}
+			],
+            'company_description:html',
+			[
+				'attribute' => 'country',
+				'value' => function ($model) {
+					return $model->locality->title . ' ' . $model->locality->type;
+				}
+			],
         ],
     ]) ?>
 

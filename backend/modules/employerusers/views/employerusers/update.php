@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\EmployerUsers */
 
-$this->title = 'Update Employer Users: ' . $model->id;
+$this->title = 'Update Employer Users: ' . $model->company_name;
 $this->params['breadcrumbs'][] = ['label' => 'Employer Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -16,6 +16,11 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'specializationDropDownArray' => $specializationDropDownArray,
+        'ageCompanyDropDownArray' => $ageCompanyDropDownArray,
+        'countCompanyWorkersDropDownArray' => $countCompanyWorkersDropDownArray,
+        'companyPopularityDropDownArray' => $companyPopularityDropDownArray,
+        'countryName' => $countryName
     ]) ?>
 
 </div>

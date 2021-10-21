@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'specialization')->textInput() ?>
+    <?= $form->field($model, 'specialization')->dropDownList($specializationDropDownArray) ?>
 
     <?= $form->field($model, 'webpage')->textInput(['maxlength' => true]) ?>
 
@@ -26,15 +26,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'LinkedIn')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'age_company')->textInput() ?>
+    <?= $form->field($model, 'age_company')->dropDownList($ageCompanyDropDownArray) ?>
 
-    <?= $form->field($model, 'count_company_workers')->textInput() ?>
+    <?= $form->field($model, 'count_company_workers')->dropDownList($countCompanyWorkersDropDownArray) ?>
 
-    <?= $form->field($model, 'company_popularity')->textInput() ?>
+    <?= $form->field($model, 'company_popularity')->dropDownList($companyPopularityDropDownArray) ?>
 
     <?= $form->field($model, 'company_description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'country')->textInput() ?>
+	<?= $form->field($model, 'country')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'form-control search-location', 'value' => $countryName]); ?>
+
+	<?= $form->field($model, 'hiddenCountry')->hiddenInput(['class' => 'country-js-hidden-id', 'value' => $model->country])->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

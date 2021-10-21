@@ -122,6 +122,11 @@ class EmployerUsers extends \yii\db\ActiveRecord
         return $this->hasOne(CountCompanyWorkers::className(), ['id' => 'count_company_workers']);
     }
 
+	public function getLocality()
+	{
+		return $this->hasOne(Locality::className(), ['id' => 'country']);
+	}
+
     /**
      * Gets query for [[Specialization0]].
      *
