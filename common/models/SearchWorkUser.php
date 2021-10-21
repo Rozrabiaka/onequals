@@ -89,10 +89,15 @@ class SearchWorkUser extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getSpecialization0()
+    public function getSpecializations()
     {
         return $this->hasOne(Specializations::className(), ['id' => 'specialization']);
     }
+
+	public function getLocality()
+	{
+		return $this->hasOne(Locality::className(), ['id' => 'country']);
+	}
 
     /**
      * Gets query for [[User]].

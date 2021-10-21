@@ -13,32 +13,33 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Search Work User', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+	<?= Html::a('Очистити фільтри', ['index'], ['class' => 'btn btn-info']) ?>
 
+	<?= GridView::widget([
+		'dataProvider' => $dataProvider,
+		'filterModel' => $searchModel,
+		'columns' => [
+			['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+			'id',
+			[
+				'attribute' => 'user_id',
+				'value' => function ($model) {
+					return $model->user->email;
+				}
+			],
+			'firstname',
+			'patronymic',
+			[
+				'attribute' => 'specialization',
+				'value' => function ($model) {
+					return $model->specializations->name;
+				}
+			],
 
-            'id',
-            'firstname',
-            'lastname',
-            'patronymic',
-            'specialization',
-            //'facebook',
-            //'instagram',
-            //'twitter',
-            //'LinkedIn',
-            //'country',
-            //'description:ntext',
-            //'user_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+			['class' => 'yii\grid\ActionColumn'],
+		],
+	]); ?>
 
 
 </div>
