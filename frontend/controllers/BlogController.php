@@ -54,7 +54,7 @@ class BlogController extends Controller
     public function actionEmployer()
     {
         $dataProviderSummaryAdvices = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ADVICES, Blog::BLOG_CATEGORY_EMPLOYER, 'page-blog-employer-advices');
-        $dataProviderSummaryAccessibility = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ACCESSIBILITY, Blog::BLOG_CATEGORY_SUMMARY, 'page-blog-employer-accessibility');
+        $dataProviderSummaryAccessibility = $this->findDataProvider(Blog::SECOND_BLOG_CATEGORY_ACCESSIBILITY, Blog::BLOG_CATEGORY_EMPLOYER, 'page-blog-employer-accessibility');
 
         return $this->render('employer', array(
             'dataProviderSummaryAdvices' => $dataProviderSummaryAdvices,

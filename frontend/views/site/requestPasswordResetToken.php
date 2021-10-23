@@ -7,7 +7,7 @@
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
-$this->title = 'Відновлення паролю';
+$this->title = 'OnEquals - Відновлення паролю';
 ?>
 <div class="site-request-password-reset">
     <div class = "container">

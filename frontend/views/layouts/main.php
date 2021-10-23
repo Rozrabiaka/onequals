@@ -21,6 +21,7 @@ AppAsset::register($this);
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
+        <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/images/lightnings.png" type="image/x-icon" />
     </head>
     <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
@@ -81,7 +82,7 @@ AppAsset::register($this);
                             <li><a href="/blog/legislation">Законодавство</a></li>
                             <?php if (!empty(Yii::$app->user->identity)): ?>
                                 <li><?php
-                                    echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                                    echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline menu-margin'])
                                         . Html::submitButton(
                                             'Вийти',
                                             ['class' => 'btn btn-link logout']
@@ -89,7 +90,7 @@ AppAsset::register($this);
                                         . Html::endForm();
                                     ?></li>
                             <?php else: ?>
-                                <li><a href="/site/signup">Зареєструватися</a></li>
+                                <li class="menu-margin"><a href="/site/signup">Зареєструватися</a></li>
                                 <li><a href="/site/login">Увійти</a></li>
                             <?php endif; ?>
 

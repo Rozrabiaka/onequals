@@ -76,9 +76,9 @@ class SignupForm extends Model
                 ['user' => $user]
             )
             ->setCharset('UTF-8')
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom([Yii::$app->params['supportEmail'] =>  'На рівних - robot'])
             ->setTo($this->email)
-            ->setSubject('Реєстрація ' . Yii::$app->name)
+            ->setSubject('Реєстрація На рівних')
             ->send();
     }
 }

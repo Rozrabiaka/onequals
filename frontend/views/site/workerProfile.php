@@ -13,7 +13,7 @@ $this->title = 'OnEquals - Профіль шукача';
                 </div>
                 <div class="col-xl-9 profile-top-info">
                     <div class="employer-header-info">
-                        <h1 class="company-name"><?php echo $model['firstname'] . ' ' . $model['lastname']; ?></h1>
+                        <h1 class="company-name"><?php echo $model['lastname'] . ' ' . $model['firstname'] . ' ' . $model['patronymic']; ?></h1>
                         <p class="profile-webpage"><?php echo $model['webpage'] ?></p>
                         <p>
                             <img src="/images/location.png"/><span><?php echo $model['title'] . ', ' . $model['type'] ?></span>

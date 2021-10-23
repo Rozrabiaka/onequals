@@ -16,7 +16,8 @@ class AppAsset extends AssetBundle
         'css/fonts.css'
     ];
     public $js = [
-        '/js/header/header.js'
+        '/js/header/header.js',
+        '/js/scrollTop/scrollTop.js'
     ];
     public $images = [];
 

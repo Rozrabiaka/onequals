@@ -1,6 +1,6 @@
 <?php
 
-$this->title = 'Хто ви';
+$this->title = 'OnEquals - Хто ви';
 ?>
 <div class="site-login">
     <div class="container">

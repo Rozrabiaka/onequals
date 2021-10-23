@@ -275,7 +275,7 @@ class SiteController extends Controller
 	 * Verify email address
 	 *
 	 * @param string $token
-	 * @return yii\web\Response
+	 * @return string
 	 * @throws BadRequestHttpException
 	 */
 	public function actionVerifyEmail($token)
@@ -285,13 +285,18 @@ class SiteController extends Controller
 		} catch (InvalidArgumentException $e) {
 			throw new BadRequestHttpException($e->getMessage());
 		}
+
 		if (($user = $model->verifyEmail()) && Yii::$app->user->login($user)) {
-			Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
-			return $this->goHome();
+			return $this->render('siteResultPage', [
+				'message' => 'Ви успішно підтвердили пошту. Успіхів у пошуку класних вакансій :)',
+				'title' => 'Успішне підтвердження почти.'
+			]);
 		}
 
-		Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
-		return $this->goHome();
+		return $this->render('siteResultPage', [
+			'title' => 'Помилка',
+			'error' => 'Сталась помилка під час підтвердження пошти. Будь ласка спробуйте знову. У вирішенні проблеми напишіть нам на пошту, все буде добре :)'
+		]);
 	}
 
 	/**
@@ -304,10 +309,11 @@ class SiteController extends Controller
 		$model = new ResendVerificationEmailForm();
 		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 			if ($model->sendEmail()) {
-				Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-				return $this->goHome();
+				return $this->render('siteResultPage', [
+					'message' => 'Провірьте будь ласка пошту для подальших інструкцій :)',
+					'title' => 'Успішне підтвердження почти.'
+				]);
 			}
-			Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
 		}
 
 		return $this->render('resendVerificationEmail', [
@@ -676,13 +682,21 @@ class SiteController extends Controller
 		else {
 			if (!empty(Yii::$app->request->post())) {
 
-				$searchName = Yii::$app->request->post()['SearchWorkUser']['searchName'];
+				$searchName = trim(Yii::$app->request->post()['SearchWorkUser']['searchName']);
 				$searchName = explode(' ', $searchName);
 
+
 				$model->load(Yii::$app->request->post());
-				$model->firstname = $searchName[1];
-				$model->lastname = $searchName[0];
-				$model->patronymic = $searchName[2];
+				if (count($searchName) == 1) {
+					$model->firstname = empty($searchName[0]) ? '' : $searchName[0];
+					$model->lastname = '';
+					$model->patronymic = '';
+				} else {
+					$model->firstname = empty($searchName[1]) ? '' : $searchName[1];
+					$model->lastname = empty($searchName[0]) ? '' : $searchName[0];
+					$model->patronymic = empty($searchName[2]) ? '' : $searchName[2];
+				}
+
 				$model->country = Yii::$app->request->post()['SearchWorkUser']['hiddenCountry'];
 				$model->user_id = \Yii::$app->user->identity->id;
 				$model->img = '/images/avatar.png';
@@ -900,7 +914,7 @@ class SiteController extends Controller
 
 		if (!empty($model)) {
 			if (!empty(Yii::$app->request->post())) {
-				$searchName = Yii::$app->request->post()['SearchWorkUser']['searchName'];
+				$searchName = trim(Yii::$app->request->post()['SearchWorkUser']['searchName']);
 				$searchName = explode(' ', $searchName);
 
 				$model->load(Yii::$app->request->post());
@@ -911,9 +925,16 @@ class SiteController extends Controller
 
 				if ($imgPath) $model->img = $imgPath;
 
-				$model->firstname = $searchName[1];
-				$model->lastname = $searchName[0];
-				$model->patronymic = $searchName[2];
+				if (count($searchName) == 1) {
+					$model->firstname = empty($searchName[0]) ? '' : $searchName[0];
+					$model->lastname = '';
+					$model->patronymic = '';
+				} else {
+					$model->firstname = empty($searchName[1]) ? '' : $searchName[1];
+					$model->lastname = empty($searchName[0]) ? '' : $searchName[0];
+					$model->patronymic = empty($searchName[2]) ? '' : $searchName[2];
+				}
+
 				$model->country = Yii::$app->request->post('SearchWorkUser')['hiddenCountry'];
 
 				if ($model->save()) {

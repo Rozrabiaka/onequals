@@ -43,16 +43,15 @@ $this->title = 'OnEquals - Блог шукачам';
                         </div>
                     <?php endforeach; ?>
                 </div>
-            </div>
-        </div>
-
-        <div class="row swiper-blog">
-            <div class="swiper-button-prev col-md-6 swiper-blog-button">
-                <div class="prev-blog"><span>←</span></div>
-            </div>
-            <div class="swiper-button-next col-md-6 swiper-blog-button swiper-blog-button-next-blog">
-                <div class="next-blog">
-                    Наступна історія →
+                <div class="row swiper-blog">
+                    <div class="swiper-button-prev col-md-6 swiper-blog-button">
+                        <div class="prev-blog"><span>←</span></div>
+                    </div>
+                    <div class="swiper-button-next col-md-6 swiper-blog-button swiper-blog-button-next-blog">
+                        <div class="next-blog">
+                            Наступна історія →
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

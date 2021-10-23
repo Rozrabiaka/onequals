@@ -7,7 +7,7 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = 'OnEquals - ' . $name;
 ?>
 <div class="site-error">
     <h1>Схоже, щось пішло не так :(</h1>

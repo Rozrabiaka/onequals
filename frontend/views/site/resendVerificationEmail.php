@@ -7,7 +7,7 @@
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
-$this->title = 'Відправити підтверджуючий лист';
+$this->title = 'OnEquals - Відправити підтверджуючий лист';
 ?>
 <div class="site-resend-verification-email">
     <div class = "container">

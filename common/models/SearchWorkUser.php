@@ -52,7 +52,7 @@ class SearchWorkUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstname', 'lastname', 'patronymic', 'specialization', 'description'], 'required'],
+            [['firstname', 'specialization', 'description'], 'required'],
             [['specialization', 'user_id'], 'integer'],
             [['description', 'img'], 'string'],
             ['country', 'safe'],

@@ -9,7 +9,7 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\authclient\widgets\AuthChoice;
 
-$this->title = 'Signup';
+$this->title = 'OnEquals - Реєстрація';
 ?>
 <div class="site-signup">
     <div class="container">
@@ -42,18 +42,18 @@ $this->title = 'Signup';
                     </div>
                 </div>
 
-                <div>
-                    <?php $authAuthChoice = AuthChoice::begin([
-                        'baseAuthUrl' => ['site/auth']
-                    ]); ?>
-
-                    <ul>
-                        <?php foreach ($authAuthChoice->getClients() as $client): ?>
-                            <li><?php echo $authAuthChoice->clientLink($client) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <?php AuthChoice::end(); ?>
-                </div>
+<!--                <div>-->
+<!--                    --><?php //$authAuthChoice = AuthChoice::begin([
+//                        'baseAuthUrl' => ['site/auth']
+//                    ]); ?>
+<!---->
+<!--                    <ul>-->
+<!--                        --><?php //foreach ($authAuthChoice->getClients() as $client): ?>
+<!--                            <li>--><?php //echo $authAuthChoice->clientLink($client) ?><!--</li>-->
+<!--                        --><?php //endforeach; ?>
+<!--                    </ul>-->
+<!--                    --><?php //AuthChoice::end(); ?>
+<!--                </div>-->
             </div>
             <?php ActiveForm::end(); ?>
         </div>

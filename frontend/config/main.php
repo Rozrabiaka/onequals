@@ -12,6 +12,19 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+		'mailer' => [
+			'class' => 'yii\swiftmailer\Mailer',
+			'viewPath' => '@common/mail',
+			'useFileTransport' => false,
+			'transport' => [
+				'class' => 'Swift_SmtpTransport',
+				'host' => 'smtp.gmail.com',
+				'username' => 'on.equal.project@gmail.com',
+				'password' => 'ONequals21',
+				'port' => '587',
+				'encryption' => 'tls',
+			],
+		],
         'authClientCollection' => [
             'class'   => \yii\authclient\Collection::className(),
             'clients' => [

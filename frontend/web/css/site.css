@@ -341,6 +341,7 @@ a.desc:after {
     margin: 0 auto;
     padding-top: 15px;
     padding-bottom: 15px;
+    color:#000;
 }
 
 .home-search-img-start-2 {
@@ -417,6 +418,7 @@ a.desc:after {
     font-size: 46px;
     margin: 5.3vw auto 225px;
     box-sizing: border-box;
+    color:#000;
 }
 
 .ui-autocomplete {
@@ -616,7 +618,7 @@ a.desc:after {
     font-size: 46px;
     line-height: 55px;
     color: #FFFFFF;
-    padding-top: 200px;
+    padding-top: 100px;
 }
 
 .support-buttons .smile-button-left, .support-buttons .smile-button-right {
@@ -673,6 +675,16 @@ a.desc:after {
 .choose-form {
     margin-top: 100px;
 }
+#login-form .yellow-button, #form-signup .yellow-button{
+    color:#000;
+}
+
+#login-form .custom-checkbox label{
+    font-size:14px;
+}
+#login-form #loginform-rememberme{
+    height:100%;
+}
 
 #login-form input, #employer-form input, #edit-employer-form input, #search-work-form input, #worker-profile-form input, #worker-summary-form input, #edit-worker-summary input {
     width: 100%;
@@ -689,6 +701,13 @@ a.desc:after {
     margin-top: 50px;
     width: 100%;
     display: inline-block;
+}
+
+.ui-state-active{
+    border:none !important;
+}
+.stories .swiper-button-prev, .swiper-container-rtl .swiper-button-next, .stories .swiper-button-next{
+    left:0;
 }
 
 .social-link-employer .form-group {
@@ -1311,18 +1330,16 @@ a.desc:after {
     margin-bottom: 200px;
 }
 
-.swiper-button-next {
-    right: -8px;
-}
-
 .swiper-img {
     margin-bottom: 100px;
 }
 
 .employer-blog, .legislation-blog, .blog-page {
-    margin-top: 150px;
+    margin-top: 50px;
 }
-
+.menu-margin{
+    margin-top:50px;
+}
 .blog-page .blog-page-category-name {
     background-color: #C4DE95;
     padding: 0 2px 1px;
@@ -1364,7 +1381,7 @@ a.desc:after {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    overflow: hidden;
+    overflow: auto;
     text-overflow: ellipsis;
 }
 
@@ -1574,6 +1591,15 @@ a.desc:after {
 
     .next-blog {
         font-size: 30px;
+    }
+
+    .home-support-text p{
+        font-size: 24px;
+        line-height: 40px;
+    }
+    .home-video-left-text{
+        font-size: 24px;
+        line-height: 40px;
     }
 }
 
@@ -1791,6 +1817,9 @@ a.desc:after {
 }
 
 @media screen and (max-width: 480px) {
+    .privacy-policy h1{
+        font-size:36px;
+    }
     .home-search-img-lightning-2 {
         top: calc(195px + 130vw);
         left: calc(31px + 2.5vw);
@@ -1815,6 +1844,14 @@ a.desc:after {
         width: 250px;
         height: 250px;
     }
+    .footer .footer-left-img{
+        float:none;
+        margin-bottom: 20px;
+    }
+    #form-signup .yellow-button, #login-form .yellow-button{
+        font-size:26px;
+    }
+
 }
 
 @media screen and (max-width: 440px) {
