@@ -228,9 +228,9 @@ class SiteController extends Controller
 		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 			if ($model->sendEmail()) {
 				return $this->render('siteResultPage', [
-					'title' => 'Успішно!',
-					'error' => 'Вам на пошту надійшов лист з підтвердженням.
-                    Будь ласка, перейдіть на пошту для подальших інструкцій.'
+					'message' => 'Вам на пошту надійшов лист з підтвердженням.
+                    Будь ласка, перейдіть на пошту для подальших інструкцій.',
+					'title' => 'Успішна реєстрація'
 				]);
 			}
 
@@ -261,9 +261,10 @@ class SiteController extends Controller
 		}
 
 		if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-			Yii::$app->session->setFlash('success', 'New password saved.');
-
-			return $this->goHome();
+			return $this->render('siteResultPage', [
+				'message' => 'Ваш пароль було успішно відновлено. Приємного користування платформою :) ',
+				'title' => 'Успішне відновлення паролю'
+			]);
 		}
 
 		return $this->render('resetPassword', [

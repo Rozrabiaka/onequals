@@ -30,7 +30,7 @@ $this->title = 'OnEquals - Створити резюме';
                 <?= $form->field($model, 'hiddenCountry')->hiddenInput(['class' => 'country-js-hidden-id', 'value'=> $model->country])->label(false) ?>
 
                 <div class="col-xl-12">
-                    <?= $form->field($model, 'description')->textarea(['placeholder' => 'до 1000 знаків'])->label('4. Розкажіть про вакантне місце більше (про умови праці у вашій команді, тощо)') ?>
+                    <?= $form->field($model, 'description')->textarea(['placeholder' => 'до 1000 знаків'])->label('4. Додаткова інформація про себе (досвід роботи у цій сфері, освіту, необхідні умови для праці тощо)') ?>
                 </div>
 
                 <div class="col-xl-12">
