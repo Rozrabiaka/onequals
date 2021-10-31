@@ -43,7 +43,7 @@
                     <?php endif; ?>
                 <?php endif; ?>
 
-                <a href="mailto::<?php echo $model->relatedRecords['user']->relatedRecords['user']->email; ?>">
+                <a href="mailto::<?php echo empty($model->employer['contact_email']) ? $model->relatedRecords['user']->relatedRecords['user']->email : $model->employer['contact_email'] ; ?>">
                     <div class="vac-prof-but vac-prof-but-email vac-prof-button-search">
                         <img src="/images/mail-vacancy.png">
                     </div>
