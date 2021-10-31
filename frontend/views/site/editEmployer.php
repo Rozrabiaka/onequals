@@ -52,9 +52,13 @@ $this->title = 'OnEquals - Редагувати вакансію';
                 </div>
 
                 <?= $form->field($model, 'hiddenCountry')->hiddenInput(['class' => 'country-js-hidden-id', 'value' => $model->country])->label(false) ?>
-
                 <div class="col-xl-12">
                     <?= $form->field($model, 'webpage')->textInput(['placeholder' => 'вставте лінк'])->label('4. Ваш сайт, якщо він є') ?>
+                </div>
+
+
+                <div class="col-xl-12">
+					<?= $form->field($model, 'contact_email')->textInput(['placeholder' => 'example@example.com'])->label("5. Пошта для зв'язку") ?>
                 </div>
 
                 <div class="col-xl-12 social-link-employer">

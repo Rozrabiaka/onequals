@@ -5,6 +5,7 @@
 
 /* @var $model \common\models\LoginForm */
 
+use kartik\file\FileInput;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -16,6 +17,25 @@ $this->title = 'OnEquals - Новий роботодавець';
             <h1>крок 1 / про роботодавця</h1>
             <?php $form = ActiveForm::begin(['id' => 'employer-form']); ?>
             <div class="row">
+                <div class="col-xl-3 profile-avatar">
+					<?= $form->field($model, 'image')->widget(FileInput::classname(), [
+						'language' => 'ru',
+						'pluginOptions' => [
+							'browseOnZoneClick' => true,
+							'showCaption' => false,
+							'showRemove' => false,
+							'showCancel' => false,
+							'showBrowse' => false,
+							'initialPreviewAsData' => true,
+							'showUpload' => false,
+							'overwriteInitial' => false,
+							'allowedFileExtensions' => ['jpg', 'png', 'jpeg'],
+							'maxFileSize' => 2800,
+						],
+						'options' => ['accept' => 'image/*'],
+					])->label('Картинка'); ?>
+                </div>
+
                 <div class="col-xl-12">
                     <?= $form->field($model, 'company_name')->textInput(['autofocus' => true, 'placeholder' => 'наприклад, магазин "Сонечко" '])->label('1. Назва компанії / організації / ФОП') ?>
                 </div>
@@ -26,7 +46,7 @@ $this->title = 'OnEquals - Новий роботодавець';
                     ])->label('2. Оберіть, в якій сфері ви працюєте') ?>
                 </div>
 
-                <div class="col-xl-4 search-input">
+                <div class="col-xl-12 search-input">
                     <?= $form->field($model, 'country')->textInput(['placeholder' => 'Введіть місто (наприклад Київ)', 'class' => 'form-control search-location'])->label('3. Ваше розташування') ?>
                 </div>
 
@@ -36,6 +56,9 @@ $this->title = 'OnEquals - Новий роботодавець';
                     <?= $form->field($model, 'webpage')->textInput(['placeholder' => 'вставте лінк'])->label('4. Ваш сайт, якщо він є') ?>
                 </div>
 
+                <div class="col-xl-12">
+					<?= $form->field($model, 'contact_email')->textInput(['placeholder' => 'example@example.com'])->label("5. Пошта для зв'язку") ?>
+                </div>
                 <div class="col-xl-12 social-link-employer">
                     <label>6. Соціальні мережі</label>
                     <div class="col-xl-12 col-padding-zero">

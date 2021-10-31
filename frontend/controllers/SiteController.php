@@ -399,10 +399,18 @@ class SiteController extends Controller
 		elseif (!empty(Yii::$app->user->identity->id_spem)) return $this->redirect(['site/employer-profile']);
 		else {
 			if (!empty(Yii::$app->request->post())) {
+
+				//save image
+				$uploadImage = new UploadImage();
+				$model->image = UploadedFile::getInstances($model, 'image');
+				$imgPath = $uploadImage->uploadImage($model->image);
+
+				if ($imgPath) $model->img = $imgPath;
+				else $model->img = '/images/avatar.png';
+
 				$model->load(Yii::$app->request->post());
 				$model->country = (int)Yii::$app->request->post()['EmployerUsers']['hiddenCountry'];
 				$model->user_id = \Yii::$app->user->identity->id;
-				$model->img = '/images/avatar.png';
 				$model->hide_employer = $model::SHOW_EMPLOYER;
 
 				if ($model->save()) {
@@ -683,9 +691,15 @@ class SiteController extends Controller
 		else {
 			if (!empty(Yii::$app->request->post())) {
 
+				$uploadImage = new UploadImage();
+				$model->image = UploadedFile::getInstances($model, 'image');
+				$imgPath = $uploadImage->uploadImage($model->image);
+
+				if ($imgPath) $model->img = $imgPath;
+				else $model->img = '/images/avatar.png';
+
 				$searchName = trim(Yii::$app->request->post()['SearchWorkUser']['searchName']);
 				$searchName = explode(' ', $searchName);
-
 
 				$model->load(Yii::$app->request->post());
 				if (count($searchName) == 1) {
@@ -700,7 +714,6 @@ class SiteController extends Controller
 
 				$model->country = Yii::$app->request->post()['SearchWorkUser']['hiddenCountry'];
 				$model->user_id = \Yii::$app->user->identity->id;
-				$model->img = '/images/avatar.png';
 				$model->hide_worker = $model::SHOW_WORK_USER;
 
 				if ($model->save()) {
@@ -801,7 +814,7 @@ class SiteController extends Controller
 			\Yii::$app
 				->db
 				->createCommand()
-				->delete('summary', ['employer_id' => $searchWorkUserModel->id])
+				->delete('summary', ['worker_id' => $searchWorkUserModel->id])
 				->execute();
 
 			\Yii::$app

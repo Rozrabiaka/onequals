@@ -20,7 +20,7 @@ return [
 				'class' => 'Swift_SmtpTransport',
 				'host' => 'smtp.gmail.com',
 				'username' => 'on.equal.project@gmail.com',
-				'password' => 'ONequals22',
+				'password' => 'ONequals1488',
 				'port' => '587',
 				'encryption' => 'tls',
 			],
