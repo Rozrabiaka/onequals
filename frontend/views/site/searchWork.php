@@ -5,6 +5,7 @@
 
 /* @var $model \common\models\LoginForm */
 
+use dosamigos\ckeditor\CKEditor;
 use kartik\file\FileInput;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
@@ -75,7 +76,14 @@ $this->title = 'OnEquals - Новий шукач';
                 </div>
 
                 <div class="col-xl-12 ">
-					<?= $form->field($model, 'description')->textInput(['placeholder' => 'до 1000 знаків'])->label('6. Розкажіть про себе більше (про умови праці у вашій команді, про ваші цінності, про сприятливі умови для людей з інвалідністю)') ?>
+					<?= $form->field($model, 'description')->widget(CKEditor::className(), [
+						'options' => ['rows' => 8],
+						'clientOptions' => [
+							'toolbar' => true,
+							'removePlugins' => 'image','format','styles'
+						],
+
+					])->label('6. Розкажіть про себе більше (про умови праці у вашій команді, про ваші цінності, про сприятливі умови для людей з інвалідністю)') ?>
                 </div>
 
                 <div class="col-xl-6 save-profile-block">

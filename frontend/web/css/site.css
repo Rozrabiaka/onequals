@@ -409,6 +409,12 @@ a.desc:after {
     background-color: #c4de95;
 }
 
+#vacancies-employer_type [type="radio"]:hover + label, #worker-summary-form [type="radio"]:hover + label, #edit-worker-summary [type="radio"]:hover + label{
+    background-color: #c4de95;
+    border-radius: 4.3vw;
+    padding: 2px 8px;
+}
+
 .save-profile-button {
     display: block;
     width: 100%;
@@ -1368,6 +1374,9 @@ a.desc:after {
 
 .read-more-list-view {
     word-wrap: break-word;
+}
+.cke_toolbar_last{
+    display:none;
 }
 
 .read-more-list-view .title {

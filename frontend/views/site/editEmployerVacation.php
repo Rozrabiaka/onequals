@@ -1,4 +1,6 @@
 <?php
+
+use dosamigos\ckeditor\CKEditor;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
@@ -29,7 +31,14 @@ $this->title = 'OnEquals - Редагувати вакансію';
                 <?= $form->field($model, 'hiddenCountry')->hiddenInput(['class' => 'country-js-hidden-id', 'value'=> $model->country])->label(false) ?>
 
                 <div class="col-xl-12">
-                    <?= $form->field($model, 'description')->textarea(['placeholder' => 'до 1000 знаків'])->label('4. Розкажіть про вакантне місце більше (про умови праці у вашій команді, тощо)') ?>
+                    <?= $form->field($model, 'description')->widget(CKEditor::className(), [
+						'options' => ['rows' => 8],
+						'clientOptions' => [
+							'toolbar' => true,
+							'removePlugins' => 'image','format','styles'
+						],
+
+					])->label('4. Розкажіть про вакантне місце більше (про умови праці у вашій команді, тощо)') ?>
                 </div>
 
                 <div class="col-xl-12">

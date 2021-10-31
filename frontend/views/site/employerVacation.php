@@ -33,9 +33,9 @@ $this->title = 'OnEquals - Створити вакансію';
                 <div class="col-xl-12">
 					<?= $form->field($model, 'description')->widget(CKEditor::className(), [
 						'options' => ['rows' => 8],
-						'preset' => 'custom',
 						'clientOptions' => [
-							'toolbar' => false,
+							'toolbar' => true,
+                           'removePlugins' => 'image','format','styles'
 						],
 
 					])->label('4. Розкажіть про вакантне місце більше (про умови праці у вашій команді, тощо)') ?>

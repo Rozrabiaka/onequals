@@ -1,4 +1,6 @@
 <?php
+
+use dosamigos\ckeditor\CKEditor;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
@@ -76,7 +78,14 @@ $this->title = 'OnEquals - Редагувати профіль';
                 </div>
 
                 <div class="col-xl-12 ">
-                    <?= $form->field($model, 'description')->textInput(['placeholder' => 'до 1000 знаків'])->label('6. Розкажіть про себе більше (про умови праці у вашій команді, про ваші цінності, про сприятливі умови для людей з інвалідністю)') ?>
+                    <?= $form->field($model, 'description')->widget(CKEditor::className(), [
+						'options' => ['rows' => 8],
+						'clientOptions' => [
+							'toolbar' => true,
+							'removePlugins' => 'image','format','styles'
+						],
+
+					])->label('6. Розкажіть про себе більше (про умови праці у вашій команді, про ваші цінності, про сприятливі умови для людей з інвалідністю)') ?>
                 </div>
 
                 <div class="col-xl-6 save-profile-block">
