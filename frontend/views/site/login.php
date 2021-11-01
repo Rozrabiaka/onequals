@@ -44,6 +44,9 @@ $this->title = 'OnEquals - Вхід';
                     <div class="buttons-auth button button-auth-google">
                         <a href="/site/auth?authclient=google" class="google-auth">Продовжити з Google</a>
                     </div>
+                    <div class="buttons-auth button button-auth-facebook">
+                        <a href="/site/auth?authclient=facebook" class="facebook-auth">Продовжити з FB</a>
+                    </div>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

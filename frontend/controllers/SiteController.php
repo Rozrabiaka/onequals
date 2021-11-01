@@ -338,38 +338,32 @@ class SiteController extends Controller
 				$user = $auth->user;
 				Yii::$app->user->login($user);
 			} else { // регистрация
-				if (isset($attributes['email']) && User::find()->where(['email' => $attributes['email']])->exists()) {
-					Yii::$app->getSession()->setFlash('error', [
-						Yii::t('app', "Пользователь с такой электронной почтой как в {client} уже существует, но с ним не связан. Для начала войдите на сайт использую электронную почту, для того, что бы связать её.", ['client' => $client->getTitle()]),
+				$password = Yii::$app->security->generateRandomString(25);
+				$user = new User([
+					'username' => $attributes['name'],
+					'email' => $attributes['email'],
+					'password' => $password,
+					'which_user' => 0,
+					'status' => 10
+				]);
+				$user->generateAuthKey();
+				$user->generatePasswordResetToken();
+				$transaction = $user->getDb()->beginTransaction();
+				if ($user->save()) {
+					$auth = new Auth([
+						'user_id' => $user->id,
+						'source' => $client->getId(),
+						'source_id' => (string)$attributes['id'],
 					]);
-				} else {
-					$password = Yii::$app->security->generateRandomString(25);
-					$user = new User([
-						'username' => $attributes['name'],
-						'email' => $attributes['email'],
-						'password' => $password,
-						'which_user' => 0,
-						'status' => 10
-					]);
-					$user->generateAuthKey();
-					$user->generatePasswordResetToken();
-					$transaction = $user->getDb()->beginTransaction();
-					if ($user->save()) {
-						$auth = new Auth([
-							'user_id' => $user->id,
-							'source' => $client->getId(),
-							'source_id' => (string)$attributes['id'],
-						]);
-						if ($auth->save()) {
-							$transaction->commit();
-							Yii::$app->user->login($user);
-							return $this->redirect('/index');
-						} else {
-							//print_r($auth->getErrors());
-						}
+					if ($auth->save()) {
+						$transaction->commit();
+						Yii::$app->user->login($user);
+						return $this->redirect('/site/index/');
 					} else {
-						//print_r($user->getErrors());
+						return $this->render('error');
 					}
+				} else {
+					return $this->render('error');
 				}
 			}
 		} else { // Пользователь уже зарегистрирован
@@ -538,6 +532,12 @@ class SiteController extends Controller
 				->db
 				->createCommand()
 				->delete('employer_users', ['id' => $employerUserModel->id])
+				->execute();
+
+			\Yii::$app
+				->db
+				->createCommand()
+				->delete('like_summary', ['user_id' => Yii::$app->user->identity->id])
 				->execute();
 
 			\Yii::$app
@@ -825,6 +825,12 @@ class SiteController extends Controller
 				->db
 				->createCommand()
 				->delete('search_work_user', ['id' => $searchWorkUserModel->id])
+				->execute();
+
+			\Yii::$app
+				->db
+				->createCommand()
+				->delete('like_vacancies', ['user_id' => Yii::$app->user->identity->id])
 				->execute();
 
 			\Yii::$app

@@ -28,11 +28,11 @@ return [
         'authClientCollection' => [
             'class'   => \yii\authclient\Collection::className(),
             'clients' => [
-//                'facebook' => [
-//                    'class'        => 'yii\authclient\clients\Facebook',
-//                    'clientId'     => 'facebook_client_id',
-//                    'clientSecret' => 'facebook_client_secret',
-//                ],
+                'facebook' => [
+                    'class'        => 'yii\authclient\clients\Facebook',
+                    'clientId'     => '648536759889322',
+                    'clientSecret' => '052aea7ea46051f3c5236b22a0b4bc82',
+                ],
                 'google' => [
                     'class'        => 'yii\authclient\clients\Google',
                     'clientId'     => '256585557761-d0ch4pn82ep6pii485n7eteb43e80fft.apps.googleusercontent.com',

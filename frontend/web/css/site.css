@@ -1424,7 +1424,7 @@ a.desc:after {
 .img-swiper-in, .text-swiper-in{
     padding:40px;
 }
-.button-auth-google{
+.button-auth-google, .button-auth-facebook{
     background-color: #5C96F6;
     font-size: 46px;
     padding-top: 15px;
@@ -1432,10 +1432,14 @@ a.desc:after {
     width: 100%;
     text-align: center;
 }
-.button-auth-google .google-auth{
+.button-auth-facebook{
+    background: #4267B2;
+    margin-top:30px;
+}
+.button-auth-google .google-auth, .button-auth-facebook .facebook-auth{
     color:#fff;
 }
-.button-auth-google .google-auth:hover{
+.button-auth-google .google-auth:hover, .button-auth-facebook .facebook-auth:hover{
     text-decoration: none;
 }
 /* MEDIA */
