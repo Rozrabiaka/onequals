@@ -80,16 +80,18 @@ $this->title = 'OnEquals';
                     <?php foreach ($slider as $sliders): ?>
                         <div class="index-swiper swiper-slide second">
                             <div class="col-xl-5 swiper-img">
-                                <img src="<?php echo $sliders['img_path']; ?>"/>
+                                <div class="img-swiper-in">
+                                    <img src="<?php echo $sliders['img_path']; ?>"/>
+                                </div>
                             </div>
                             <div class="col-xl-7 swiper-text">
-                                <?php echo $sliders['text'] ?>
+                                <div class="text-swiper-in">
+									<?php echo $sliders['text'] ?>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
 
         </div>

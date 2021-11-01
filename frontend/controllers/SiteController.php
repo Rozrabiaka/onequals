@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Auth;
 use common\models\EmploymentType;
 use common\models\LikeSummary;
 use common\models\LikeVacancies;
@@ -342,11 +343,13 @@ class SiteController extends Controller
 						Yii::t('app', "Пользователь с такой электронной почтой как в {client} уже существует, но с ним не связан. Для начала войдите на сайт использую электронную почту, для того, что бы связать её.", ['client' => $client->getTitle()]),
 					]);
 				} else {
-					$password = Yii::$app->security->generateRandomString(6);
+					$password = Yii::$app->security->generateRandomString(25);
 					$user = new User([
-						'username' => $attributes['login'],
+						'username' => $attributes['name'],
 						'email' => $attributes['email'],
 						'password' => $password,
+						'which_user' => 0,
+						'status' => 10
 					]);
 					$user->generateAuthKey();
 					$user->generatePasswordResetToken();
@@ -360,11 +363,12 @@ class SiteController extends Controller
 						if ($auth->save()) {
 							$transaction->commit();
 							Yii::$app->user->login($user);
+							return $this->redirect('/index');
 						} else {
-							print_r($auth->getErrors());
+							//print_r($auth->getErrors());
 						}
 					} else {
-						print_r($user->getErrors());
+						//print_r($user->getErrors());
 					}
 				}
 			}
@@ -1043,7 +1047,7 @@ class SiteController extends Controller
 		if (!empty($userModel) and $userModel->which_user == EmployerUsers::EMPLOYER_WHICH_USER) {
 			$model = new EmployerUsers();
 			$employerUserModel = $model::find()
-				->select(['user.email', 'employer_users.id', 'l1.title', 'l1.type', 'employer_users.webpage', 'employer_users.contact_email' ,'employer_users.facebook', 'employer_users.instagram', 'employer_users.twitter', 'employer_users.LinkedIn', 'employer_users.company_name', 'employer_users.img', 'employer_users.company_description', 'employer_users.hide_employer'])
+				->select(['user.email', 'employer_users.id', 'l1.title', 'l1.type', 'employer_users.webpage', 'employer_users.contact_email', 'employer_users.facebook', 'employer_users.instagram', 'employer_users.twitter', 'employer_users.LinkedIn', 'employer_users.company_name', 'employer_users.img', 'employer_users.company_description', 'employer_users.hide_employer'])
 				->where(['user_id' => $userModel->id])
 				->leftJoin(['l1' => 'locality'], 'employer_users.country = l1.id')
 				->leftJoin('user', 'employer_users.user_id = user.id')

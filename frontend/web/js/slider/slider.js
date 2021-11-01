@@ -5,12 +5,17 @@ jQuery(document).ready(function () {
             prevEl: ".swiper-button-prev",
         },
     });
-
-    jQuery('.swiper-button-next').click(function(){
-        const distance = jQuery('.swiper-blog').offsetTop - jQuery('.swiper-slide-active').offsetTop - jQuery('.swiper-slide-active').offsetHeight;
-
-        console.log(distance);
-        const height = jQuery('.swiper-blog').offset().top - jQuery('.swiper-slide-active').offset().top - jQuery('.swiper-slide-active').outerHeight();
-        console.log(height);
+    heightSlider();
+    swiper.on('slideChangeTransitionStart', function () {
+        heightSlider();
     });
+
+    function heightSlider() {
+        const height = jQuery('.swiper-blog').offset().top - jQuery('.swiper-slide-active').offset().top - jQuery('.swiper-slide-active').outerHeight();
+        const heightBlock = jQuery('.swiper-slide-active').height();
+        jQuery('.swiper-blog').css('top', heightBlock + 150);
+        console.log(heightBlock);
+
+        //jQuery('.swiper-block').css('padding-bottom', 410);
+    }
 });

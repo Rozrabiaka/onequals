@@ -40,18 +40,11 @@ $this->title = 'OnEquals - Вхід';
                     </div>
                 </div>
 
-<!--                <div class="col-xl-6">-->
-<!--                    --><?php //$authAuthChoice = AuthChoice::begin([
-//                        'baseAuthUrl' => ['site/auth']
-//                    ]); ?>
-<!---->
-<!--                    <ul>-->
-<!--                        --><?php //foreach ($authAuthChoice->getClients() as $client): ?>
-<!--                            <li>--><?php //echo $authAuthChoice->clientLink($client) ?><!--</li>-->
-<!--                        --><?php //endforeach; ?>
-<!--                    </ul>-->
-<!--                    --><?php //AuthChoice::end(); ?>
-<!--                </div>-->
+                <div class="col-xl-6">
+                    <div class="buttons-auth button button-auth-google">
+                        <a href="/site/auth?authclient=google" class="google-auth">Продовжити з Google</a>
+                    </div>
+                </div>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>

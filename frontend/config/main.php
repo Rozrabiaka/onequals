@@ -28,15 +28,15 @@ return [
         'authClientCollection' => [
             'class'   => \yii\authclient\Collection::className(),
             'clients' => [
-                'facebook' => [
-                    'class'        => 'yii\authclient\clients\Facebook',
-                    'clientId'     => 'facebook_client_id',
-                    'clientSecret' => 'facebook_client_secret',
-                ],
+//                'facebook' => [
+//                    'class'        => 'yii\authclient\clients\Facebook',
+//                    'clientId'     => 'facebook_client_id',
+//                    'clientSecret' => 'facebook_client_secret',
+//                ],
                 'google' => [
                     'class'        => 'yii\authclient\clients\Google',
-                    'clientId'     => 'google_client_id',
-                    'clientSecret' => 'google_client_secret',
+                    'clientId'     => '256585557761-d0ch4pn82ep6pii485n7eteb43e80fft.apps.googleusercontent.com',
+                    'clientSecret' => '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',
                 ],
             ],
         ],

@@ -669,8 +669,7 @@ a.desc:after {
 }
 
 .swiper-block {
-    padding-top: 120px;
-    padding-bottom: 50px;
+    padding-bottom: 100px;
     height: 100%;
 }
 
@@ -1308,6 +1307,10 @@ a.desc:after {
 .swiper-blog-button:after {
     content: unset;
 }
+.swiper-blog-button{
+    width:100%;
+    height:100%;
+}
 
 .prev-blog, .next-blog {
     border-radius: 120px;
@@ -1332,12 +1335,12 @@ a.desc:after {
 }
 
 .swiper-blog {
-    margin-top: 100px;
-    margin-bottom: 200px;
+    position: absolute;
+    width:100%;
+    margin-left:0;
 }
-
-.swiper-img {
-    margin-bottom: 100px;
+.blog-slider{
+    padding-top:100px;
 }
 
 .employer-blog, .legislation-blog, .blog-page {
@@ -1370,6 +1373,10 @@ a.desc:after {
 .blog-read-more a {
     text-decoration: none;
     color: #000;
+}
+
+.vacancies-info .search-des-hide p, .vacancies-info .employer-des-hide p, .vacancies-info .worker-des-hide p, .vacancies-info .profile-des-hide p{
+    border-bottom:none;
 }
 
 .read-more-list-view {
@@ -1414,7 +1421,23 @@ a.desc:after {
     color: red;
     font-size: 54px;
 }
-
+.img-swiper-in, .text-swiper-in{
+    padding:40px;
+}
+.button-auth-google{
+    background-color: #5C96F6;
+    font-size: 46px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+    text-align: center;
+}
+.button-auth-google .google-auth{
+    color:#fff;
+}
+.button-auth-google .google-auth:hover{
+    text-decoration: none;
+}
 /* MEDIA */
 
 @media screen and (max-width: 1440px) {
@@ -1441,7 +1464,6 @@ a.desc:after {
 @media screen and (max-width: 1400px) {
     .index-swiper {
         flex-direction: column;
-        justify-content: flex-start;
     }
 }
 
@@ -1722,7 +1744,7 @@ a.desc:after {
 
 @media screen and (max-width: 768px) {
     .stories .swiper-blog-button-next-blog {
-        margin-top: 200px;
+        margin-top: 50px;
     }
 
     .blog-page .swiper-blog-button-next-blog {
