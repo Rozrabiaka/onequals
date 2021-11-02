@@ -1435,6 +1435,10 @@ a.desc:after {
 .button-auth-facebook{
     background: #4267B2;
     margin-top:30px;
+    margin-bottom:30px;
+}
+.login-reg-button{
+    height:230px;
 }
 .button-auth-google .google-auth, .button-auth-facebook .facebook-auth{
     color:#fff;
@@ -1883,7 +1887,7 @@ a.desc:after {
         float:none;
         margin-bottom: 20px;
     }
-    #form-signup .yellow-button, #login-form .yellow-button{
+    #form-signup .yellow-button, #login-form .yellow-button, .google-auth, .facebook-auth{
         font-size:26px;
     }
 

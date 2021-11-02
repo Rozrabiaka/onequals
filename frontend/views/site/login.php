@@ -36,7 +36,7 @@ $this->title = 'OnEquals - Вхід';
 
                 <div class="col-xl-6">
                     <div class="form-group">
-                        <?= Html::submitButton('Увійти →', ['class' => 'button yellow-button', 'name' => 'signup-button']) ?>
+                        <?= Html::submitButton('Увійти →', ['class' => 'button yellow-button login-reg-button', 'name' => 'signup-button']) ?>
                     </div>
                 </div>
 
